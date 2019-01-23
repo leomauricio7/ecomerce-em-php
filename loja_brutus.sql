@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 22-Jan-2019 às 04:11
+-- Generation Time: 23-Jan-2019 às 03:27
 -- Versão do servidor: 5.7.14
 -- PHP Version: 7.0.10
 
@@ -62,8 +62,10 @@ CREATE TABLE `categorias` (
 --
 
 INSERT INTO `categorias` (`id`, `nome`, `slug`, `image`, `created`, `updated`) VALUES
-(7, 'Escola teste edit', 'camisaseditt', '_LNO4840.jpg', '2019-01-21 20:58:34', '2019-01-21 22:00:37'),
-(13, 'Escola teste', 'alicate', 'Capture001.png', '2019-01-22 01:07:01', NULL);
+(14, 'Alicates', 'alicates', 'cat-alicate.png', '2019-01-22 18:31:08', NULL),
+(15, 'Camisas', 'camisas', 'cat-camisa.png', '2019-01-22 18:31:26', NULL),
+(16, 'Canivete', 'canivete', 'cat-canivete.png', '2019-01-22 18:31:35', NULL),
+(17, 'Pulseira', 'pulseira', 'cat-pulseira.png', '2019-01-22 18:31:49', NULL);
 
 -- --------------------------------------------------------
 
@@ -86,7 +88,10 @@ CREATE TABLE `cores` (
 INSERT INTO `cores` (`id`, `nome`, `cor`, `created`, `updated`) VALUES
 (12, 'Blue', '#0000ff', '2019-01-21 23:30:07', NULL),
 (13, 'red', '#ff0000', '2019-01-21 23:30:26', NULL),
-(14, 'red', '#ff0000', '2019-01-21 23:30:40', NULL);
+(14, 'red', '#ff0000', '2019-01-21 23:30:40', NULL),
+(15, 'eryrey', '#000000', '2019-01-22 01:18:20', NULL),
+(16, 'reyrey', '#ffffff', '2019-01-22 01:18:26', NULL),
+(17, 'person', '#000000', '2019-01-22 01:18:42', NULL);
 
 -- --------------------------------------------------------
 
@@ -129,7 +134,10 @@ CREATE TABLE `feichos` (
 --
 
 INSERT INTO `feichos` (`id`, `nome`, `created`, `updated`) VALUES
-(2, 'Escola teste edit', '2019-01-21 23:54:05', NULL);
+(2, 'Escola teste edit', '2019-01-21 23:54:05', NULL),
+(6, 'yett', '2019-01-22 01:18:05', NULL),
+(7, 'yeryer', '2019-01-22 01:18:06', NULL),
+(8, 'yery', '2019-01-22 01:18:11', NULL);
 
 -- --------------------------------------------------------
 
@@ -144,6 +152,19 @@ CREATE TABLE `images_produto` (
   `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Extraindo dados da tabela `images_produto`
+--
+
+INSERT INTO `images_produto` (`id`, `image`, `id_produto`, `created`, `updated`) VALUES
+(1, 'apple-touch-icon.png', 4, '2019-01-22 19:39:22', NULL),
+(2, 'apple-touch-icon.png', 8, '2019-01-22 19:41:49', NULL),
+(3, 'apple-touch-icon.png', 9, '2019-01-22 19:42:09', NULL),
+(4, 'apple-touch-icon.png', 10, '2019-01-22 19:42:35', NULL),
+(5, 'team-5.jpg', 11, '2019-01-22 19:44:54', NULL),
+(6, 'team-3.jpg', 12, '2019-01-22 19:47:53', NULL),
+(7, 'team-6.jpg', 12, '2019-01-22 19:47:53', NULL);
 
 -- --------------------------------------------------------
 
@@ -184,6 +205,13 @@ CREATE TABLE `produtos` (
   `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Extraindo dados da tabela `produtos`
+--
+
+INSERT INTO `produtos` (`id`, `nome`, `id_categoria`, `id_tamanho`, `id_cor`, `id_feiche`, `peso`, `altura`, `largura`, `comprimento`, `quantidade`, `slug`, `valor`, `created`, `updated`) VALUES
+(12, 'teste edit', 14, NULL, NULL, NULL, 1, 20, 20, 20, 100, 'teste-edit', 29.9, '2019-01-22 19:47:53', '2019-01-22 20:19:05');
 
 -- --------------------------------------------------------
 
@@ -241,7 +269,10 @@ INSERT INTO `tamanhos` (`id`, `tamanho`, `created`, `updated`) VALUES
 (6, '11', '2019-01-21 23:51:22', NULL),
 (7, '13', '2019-01-21 23:51:22', NULL),
 (11, '3', '2019-01-21 23:51:22', NULL),
-(13, '2', '2019-01-21 23:51:22', NULL);
+(13, '2', '2019-01-21 23:51:22', NULL),
+(14, 'yrey', '2019-01-22 01:18:14', NULL),
+(15, 'eyeryer', '2019-01-22 01:18:15', NULL),
+(16, 'reyer', '2019-01-22 01:18:17', NULL);
 
 -- --------------------------------------------------------
 
@@ -272,17 +303,27 @@ CREATE TABLE `usuarios` (
   `id` int(11) NOT NULL,
   `nome` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `cpf` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `type` int(11) NOT NULL,
   `senha` varchar(1000) COLLATE utf8_unicode_ci NOT NULL,
   `cep` int(12) NOT NULL,
   `uf` char(2) COLLATE utf8_unicode_ci NOT NULL,
   `cidade` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `rua` int(11) NOT NULL,
-  `numero` int(10) NOT NULL,
+  `bairro` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `rua` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `numero` int(10) DEFAULT NULL,
   `telefone` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
+  `updated` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `_token` varchar(3000) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Extraindo dados da tabela `usuarios`
+--
+
+INSERT INTO `usuarios` (`id`, `nome`, `email`, `cpf`, `type`, `senha`, `cep`, `uf`, `cidade`, `bairro`, `rua`, `numero`, `telefone`, `created`, `updated`, `_token`) VALUES
+(5, 'Leonardo Mauricio da Silva', 'leomauricio7@gmail.com', '01759890448', 1, '$2y$10$2TNIQL5aFwL0l490XIS1AeUTCq8sD9nZJBHGBZeEnybOjX3Q94T1q', 59570000, 'RN', 'CearÃ¡-Mirim', 'Passe e fica', 'Rua Prisco Richa', 1163, '84994302191', '2019-01-22 23:01:19', '2019-01-22 23:43:49', NULL);
 
 --
 -- Indexes for dumped tables
@@ -374,6 +415,8 @@ ALTER TABLE `tipo_usuario`
 --
 ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `cpf` (`cpf`),
+  ADD UNIQUE KEY `email` (`email`),
   ADD KEY `type` (`type`);
 
 --
@@ -389,12 +432,12 @@ ALTER TABLE `banners`
 -- AUTO_INCREMENT for table `categorias`
 --
 ALTER TABLE `categorias`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 --
 -- AUTO_INCREMENT for table `cores`
 --
 ALTER TABLE `cores`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 --
 -- AUTO_INCREMENT for table `cupons`
 --
@@ -404,12 +447,12 @@ ALTER TABLE `cupons`
 -- AUTO_INCREMENT for table `feichos`
 --
 ALTER TABLE `feichos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `images_produto`
 --
 ALTER TABLE `images_produto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `pedidos`
 --
@@ -419,7 +462,7 @@ ALTER TABLE `pedidos`
 -- AUTO_INCREMENT for table `produtos`
 --
 ALTER TABLE `produtos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `produtos_pedido`
 --
@@ -434,7 +477,7 @@ ALTER TABLE `status_pedido`
 -- AUTO_INCREMENT for table `tamanhos`
 --
 ALTER TABLE `tamanhos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 --
 -- AUTO_INCREMENT for table `tipo_usuario`
 --
@@ -444,16 +487,10 @@ ALTER TABLE `tipo_usuario`
 -- AUTO_INCREMENT for table `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- Constraints for dumped tables
 --
-
---
--- Limitadores para a tabela `images_produto`
---
-ALTER TABLE `images_produto`
-  ADD CONSTRAINT `images_produto_ibfk_1` FOREIGN KEY (`id_produto`) REFERENCES `produtos` (`id`);
 
 --
 -- Limitadores para a tabela `pedidos`

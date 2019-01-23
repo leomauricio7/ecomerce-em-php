@@ -1,116 +1,166 @@
 <?php 
-require_once('./controllers/init.inc');
-require_once('./vendor/autoload.php');
-if (isset($_GET['logout'])):
-  if ($_GET['logout'] == 'confirmar'):
-      Validation::deslogar();
-  endif;
-endif;
+require_once('./panel/controllers/init.inc');
+require_once('./panel/vendor/autoload.php');
 ?>
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-br">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="<?php echo Url::getBase(); ?>public/image/logo.png">
+<head>
+  <meta charset="utf-8">
+  <title>Brutus Store</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
 
-    <title>Loja Brutus Store</title>
+  <!-- Favicons -->
+  <link href="img/favicon.png" rel="icon">
+  <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
 
-    <!-- Bootstrap core CSS -->
-    <link href="<?php echo Url::getBase(); ?>public/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Raleway:300,400,500,700,800|Montserrat:300,400,700" rel="stylesheet">
 
-    <!-- Custom styles for this template -->
-    <link href="<?php echo Url::getBase(); ?>public/css/dashboard.css" rel="stylesheet">
-    <!-- fontweasome -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
-  </head>
+  <!-- Bootstrap CSS File -->
 
-  <body>
-  <?php require_once('view/admin/menu-top.php');?>
-    <div class="container-fluid">
-      <div class="row">
-    <?php require_once('view/admin/menu-left.php'); ?>
 
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-          <?php
-              $pagina = Url::getURL(0);
-              if($pagina == null){$pagina = 'home';}
-              if (file_exists("view/admin/" . $pagina . ".php")):
-                  require "view/admin/" . $pagina . ".php";
-              else:
-                  require "view/admin/404.php";
-              endif;
-          ?>
-        </main>
+  <!-- Libraries CSS Files -->
+  <link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="lib/animate/animate.min.css" rel="stylesheet">
+  <link href="lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+  <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+  <link href="lib/magnific-popup/magnific-popup.css" rel="stylesheet">
+  <link href="lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+  <link href="css/carrousel.css" rel="stylesheet">
+
+  <!-- Main Stylesheet File -->
+  <link href="css/style.css" rel="stylesheet">
+  <link rel="stylesheet" href="lib/bootstrap/bootstrap.min.css">
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.1/jquery.min.js"></script> 
+  <style type="text/css">
+    .float-left {
+      float: left!important;
+      padding: 8px 0;
+    }
+    .float-right {
+      float: right!important;
+      padding: 8px 0;
+    }
+    .btn-default-search-top {
+    color: #fff;
+    background-color: #186548;
+    /* border-color: #ccc; */
+    }    
+    .image {
+      opacity: 1;
+      display: block;
+      width: 100%;
+      height: auto;
+      transition: .5s ease;
+      backface-visibility: hidden;
+    }
+
+    .middle {
+      transition: .5s ease;
+      opacity: 0;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+      text-align: center;
+    }
+
+    .pic:hover .image {
+      opacity: 0.3;
+      cursor: pointer;
+    }
+
+    .pic:hover .middle {
+      opacity: 1;
+      cursor: pointer;
+    }
+
+    .text {
+      background-color: #196448;
+      color: white;
+      font-size: 12px;
+      padding: 12px 24px;
+    }    
+    .text a{
+      color: #fff;
+    }
+  </style>
+</head>
+
+<body id="body">
+  <!--==========================
+    Top Bar
+  ============================-->
+  <?php include_once "./view/header.php"; ?>
+  
+  <main id="main">
+    <?php
+          $pagina = Url::getURL(0);
+          if($pagina == null){$pagina = 'home';}
+          if (file_exists("view/" . $pagina . ".php")):
+              require "view/" . $pagina . ".php";
+          else:
+              require "view/404.php";
+          endif;                             
+    ?>    
+    <section id="call-to-action" class="wow fadeInUp">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 text-center text-lg-left">
+            <p class="cta-text">
+              Inscreva-se cadastrando seu e-mail e receba <strong>Cupons Promocionais</strong> com Descontos Especiais.
+            </p>
+          </div>
+          <div class="col-lg-6 text-center">
+            <div class="form">
+              <form>
+                <div class="input-group">
+                  <input type="text" class="form-control" placeholder="Informe seu E-mail!">
+                  <div class="input-group-btn">
+                    <button class="btn btn-default" type="submit">
+                      <i class="fa fa-arrow-right"></i>
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>            
+          </div>
+        </div>
       </div>
-    </div>
+    </section><!-- #call-to-action -->
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="<?php echo Url::getBase(); ?>public/js/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="<?php echo Url::getBase(); ?>public/js/popper.min.js"></script>
-    <script src="<?php echo Url::getBase(); ?>publicjs/bootstrap.min.js"></script>
-    <!-- Icons -->
-    <script src="<?php echo Url::getBase(); ?>public/js/feather.min.js"></script>
-    <script>
-      feather.replace()
-    </script>
+  </main>
 
-    <!-- Graphs -->
-    <script src="<?php echo Url::getBase(); ?>public/js/Chart.min.js"></script>
-    <script>
-      var ctx = document.getElementById("myChart");
-      var myChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-          labels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-          datasets: [{
-            data: [15339, 21345, 18483, 24003, 23489, 24092, 12034],
-            lineTension: 0,
-            backgroundColor: 'transparent',
-            borderColor: '#007bff',
-            borderWidth: 4,
-            pointBackgroundColor: '#007bff'
-          }]
-        },
-        options: {
-          scales: {
-            yAxes: [{
-              ticks: {
-                beginAtZero: false
-              }
-            }]
-          },
-          legend: {
-            display: false,
-          }
-        }
-      });
-    </script>
-    <script type="text/javascript">
-        var settimmer = 0;
-        $(function () {
-            window.setInterval(function () {
-                var timeCounter = $("b[id=show-time]").html();
-                var updateTime = eval(timeCounter) - eval(1);
-                $("[id=show-time]").html(updateTime);
+  <!--==========================
+    Footer
+  ============================-->
+  <?php include_once "./view/footer.php"; ?>
 
-                if (updateTime === 0) {
-                    window.location = ("<?php echo URL::getBase() . '' . URL::getURL(0); ?>");
-                }
-            }, 1000);
+  <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
 
-        });
-    </script> 
-    <script>
-    
-      $('#plus').click( () => {
-        $('#menu-footer').toggle('slow', () => {});
-      });
-    
-    </script>
-  </body>
+  <!-- JavaScript Libraries -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>  
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="lib/jquery/jquery-migrate.min.js"></script>
+  <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="lib/easing/easing.min.js"></script>
+  <script src="lib/superfish/hoverIntent.js"></script>
+  <script src="lib/superfish/superfish.min.js"></script>
+  <script src="lib/wow/wow.min.js"></script>
+  <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+  <script src="lib/magnific-popup/magnific-popup.min.js"></script>
+  <script src="lib/sticky/sticky.js"></script>
+  <!-- Uncomment below if you want to use dynamic Google Maps -->
+  <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD8HeI8o-c1NppZA-92oYlXakhDPYR7XMY"></script> -->
+
+  <!-- Contact Form JavaScript File -->
+  <script src="contactform/contactform.js"></script>
+
+  <!-- Template Main Javascript File -->
+  <script src="js/main.js"></script>
+
+</body>
 </html>
