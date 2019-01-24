@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 23-Jan-2019 às 03:27
+-- Generation Time: 24-Jan-2019 às 02:46
 -- Versão do servidor: 5.7.14
 -- PHP Version: 7.0.10
 
@@ -113,8 +113,7 @@ CREATE TABLE `cupons` (
 --
 
 INSERT INTO `cupons` (`id`, `nome`, `desconto`, `validade`, `created`, `updated`) VALUES
-(6, 'BIKDASBFJLDSBGJKLFBJ', 25.99, '2019-02-27', '2019-01-21 23:11:03', '2019-01-21 23:14:39'),
-(7, 'BIKDASBFJLDSBGJKLFBJ', 29.99, '2019-02-27', '2019-01-21 23:11:05', NULL);
+(6, 'BIKDASBFJLDSBGJKLFBJ', 25.99, '2019-02-27', '2019-01-21 23:11:03', '2019-01-21 23:14:39');
 
 -- --------------------------------------------------------
 
@@ -128,16 +127,6 @@ CREATE TABLE `feichos` (
   `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Extraindo dados da tabela `feichos`
---
-
-INSERT INTO `feichos` (`id`, `nome`, `created`, `updated`) VALUES
-(2, 'Escola teste edit', '2019-01-21 23:54:05', NULL),
-(6, 'yett', '2019-01-22 01:18:05', NULL),
-(7, 'yeryer', '2019-01-22 01:18:06', NULL),
-(8, 'yery', '2019-01-22 01:18:11', NULL);
 
 -- --------------------------------------------------------
 
@@ -164,7 +153,24 @@ INSERT INTO `images_produto` (`id`, `image`, `id_produto`, `created`, `updated`)
 (4, 'apple-touch-icon.png', 10, '2019-01-22 19:42:35', NULL),
 (5, 'team-5.jpg', 11, '2019-01-22 19:44:54', NULL),
 (6, 'team-3.jpg', 12, '2019-01-22 19:47:53', NULL),
-(7, 'team-6.jpg', 12, '2019-01-22 19:47:53', NULL);
+(7, 'team-6.jpg', 12, '2019-01-22 19:47:53', NULL),
+(8, 'team-7.jpg', 13, '2019-01-23 18:27:45', NULL),
+(9, 'team-7.jpg', 14, '2019-01-23 18:29:23', NULL),
+(10, 'team-7.jpg', 15, '2019-01-23 18:29:25', NULL),
+(11, 'team-7.jpg', 16, '2019-01-23 18:29:27', NULL),
+(12, 'team-7.jpg', 17, '2019-01-23 18:29:28', NULL),
+(13, 'team-7.jpg', 18, '2019-01-23 18:29:34', NULL),
+(14, 'team-7.jpg', 19, '2019-01-23 18:29:36', NULL),
+(15, 'team-7.jpg', 20, '2019-01-23 18:29:39', NULL),
+(16, 'team-7.jpg', 21, '2019-01-23 18:29:44', NULL),
+(17, 'team-7.jpg', 22, '2019-01-23 18:29:49', NULL),
+(18, 'team-1.jpg', 22, '2019-01-23 22:37:49', NULL),
+(19, 'team-2.jpg', 22, '2019-01-23 22:37:49', NULL),
+(20, 'team-3.jpg', 22, '2019-01-23 22:37:49', NULL),
+(21, 'team-4.jpg', 22, '2019-01-23 22:37:49', NULL),
+(22, 'team-5.jpg', 23, '2019-01-23 23:09:19', NULL),
+(23, 'team-6.jpg', 23, '2019-01-23 23:09:19', NULL),
+(24, 'team-8.jpg', 23, '2019-01-23 23:09:19', NULL);
 
 -- --------------------------------------------------------
 
@@ -191,6 +197,7 @@ CREATE TABLE `pedidos` (
 CREATE TABLE `produtos` (
   `id` int(11) NOT NULL,
   `nome` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `descricao` text COLLATE utf8_unicode_ci,
   `id_categoria` int(11) NOT NULL,
   `id_tamanho` int(11) DEFAULT NULL,
   `id_cor` int(11) DEFAULT NULL,
@@ -210,8 +217,9 @@ CREATE TABLE `produtos` (
 -- Extraindo dados da tabela `produtos`
 --
 
-INSERT INTO `produtos` (`id`, `nome`, `id_categoria`, `id_tamanho`, `id_cor`, `id_feiche`, `peso`, `altura`, `largura`, `comprimento`, `quantidade`, `slug`, `valor`, `created`, `updated`) VALUES
-(12, 'teste edit', 14, NULL, NULL, NULL, 1, 20, 20, 20, 100, 'teste-edit', 29.9, '2019-01-22 19:47:53', '2019-01-22 20:19:05');
+INSERT INTO `produtos` (`id`, `nome`, `descricao`, `id_categoria`, `id_tamanho`, `id_cor`, `id_feiche`, `peso`, `altura`, `largura`, `comprimento`, `quantidade`, `slug`, `valor`, `created`, `updated`) VALUES
+(22, 'Teste', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', 16, NULL, NULL, NULL, 1, 20, 20, 20, 50, 'teste', 52.3, '2019-01-23 18:29:49', '2019-01-23 22:03:04'),
+(23, 'teste 2', 'teste 2', 16, NULL, NULL, NULL, 1, 20, 20, 20, 10, 'teste-2', 35.96, '2019-01-23 23:09:19', NULL);
 
 -- --------------------------------------------------------
 
@@ -267,12 +275,7 @@ CREATE TABLE `tamanhos` (
 
 INSERT INTO `tamanhos` (`id`, `tamanho`, `created`, `updated`) VALUES
 (6, '11', '2019-01-21 23:51:22', NULL),
-(7, '13', '2019-01-21 23:51:22', NULL),
-(11, '3', '2019-01-21 23:51:22', NULL),
-(13, '2', '2019-01-21 23:51:22', NULL),
-(14, 'yrey', '2019-01-22 01:18:14', NULL),
-(15, 'eyeryer', '2019-01-22 01:18:15', NULL),
-(16, 'reyer', '2019-01-22 01:18:17', NULL);
+(7, '13', '2019-01-21 23:51:22', NULL);
 
 -- --------------------------------------------------------
 
@@ -323,7 +326,8 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `nome`, `email`, `cpf`, `type`, `senha`, `cep`, `uf`, `cidade`, `bairro`, `rua`, `numero`, `telefone`, `created`, `updated`, `_token`) VALUES
-(5, 'Leonardo Mauricio da Silva', 'leomauricio7@gmail.com', '01759890448', 1, '$2y$10$2TNIQL5aFwL0l490XIS1AeUTCq8sD9nZJBHGBZeEnybOjX3Q94T1q', 59570000, 'RN', 'CearÃ¡-Mirim', 'Passe e fica', 'Rua Prisco Richa', 1163, '84994302191', '2019-01-22 23:01:19', '2019-01-22 23:43:49', NULL);
+(7, 'Leonardo Mauricio da Silva', 'leomauricio7@gmail.com', '01759890448', 1, '$2y$10$6yAthKUh9crEnJLwmAoYWehq0NpoMTfmjw1J.9OfHd7QghSPQV4Oa', 59570000, 'RN', 'CearÃ¡-Mirim', 'Passe e fica', 'Rua Prisco Rocha', 1163, '84994302191', '2019-01-23 17:59:48', '2019-01-23 18:23:01', NULL),
+(10, 'teste cliente', 'teste@gmail.com', '44654654646', 2, '$2y$10$4KnATnXDSFO6rw5PCtZYJebEF/yIjT..niFABj/xGSbO7ahWQWZpm', 59490000, 'RN', 'Ielmo Marinho', 'Teste', 'rua teste', 1212, '84 32670013', '2019-01-23 23:36:42', NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -379,6 +383,7 @@ ALTER TABLE `pedidos`
 --
 ALTER TABLE `produtos`
   ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `slug` (`slug`),
   ADD KEY `id_cor` (`id_cor`),
   ADD KEY `id_tamanho` (`id_tamanho`),
   ADD KEY `id_categoria` (`id_categoria`),
@@ -452,7 +457,7 @@ ALTER TABLE `feichos`
 -- AUTO_INCREMENT for table `images_produto`
 --
 ALTER TABLE `images_produto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 --
 -- AUTO_INCREMENT for table `pedidos`
 --
@@ -462,7 +467,7 @@ ALTER TABLE `pedidos`
 -- AUTO_INCREMENT for table `produtos`
 --
 ALTER TABLE `produtos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 --
 -- AUTO_INCREMENT for table `produtos_pedido`
 --
@@ -487,7 +492,7 @@ ALTER TABLE `tipo_usuario`
 -- AUTO_INCREMENT for table `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- Constraints for dumped tables
 --
