@@ -54,15 +54,15 @@
                 </div>
                 <div class="form-group col-md-2">
                     <label>Altura <strong>cm</strong></label>
-                    <input type="text" name="altura" class="form-control" placeholder="0 cm" value="20" required>
+                    <input type="text" name="altura" class="form-control" placeholder="0 cm" value="30" required>
                 </div>
                 <div class="form-group col-md-2">
                     <label>Largura <strong>cm</strong></label>
-                    <input type="text" name="largura" class="form-control" placeholder="0 cm" value="20" required>
+                    <input type="text" name="largura" class="form-control" placeholder="0 cm" value="30" required>
                 </div>
                 <div class="form-group col-md-2">
                     <label>Comprimento</label>
-                    <input type="text" name="comprimento" class="form-control" placeholder="0 cm" value="20" required>
+                    <input type="text" name="comprimento" class="form-control" placeholder="0 cm" value="30" required>
                 </div>
                 <div class="form-group col-md-2">
                     <label>Valor</label>
@@ -223,6 +223,26 @@
             <div class="form-group">
                 <label for="inputAddress">Imagens do produto</label>
                 <input type="file" class="form-control" name="images[]" multiple>
+                <table class="table">
+                    <thead>
+                        <th>Imagem</th>
+                        <th><i class="fa fa-cog"></i></th>
+                    </thead>
+                    <tbody>
+                    <?php 
+                    $read_images = new Read();
+                    $read_images->ExeRead('images_produto', 'where id_produto = '.$id);
+                    $idPasta = $id;
+                    foreach($read_images->getrESULT() AS $images):
+                        extract($images);
+                    ?>
+                        <tr>
+                            <td><img width="50"src="<?php echo Url::getBase().'uploud/produto/'.$idPasta.'/'.$image ?>"></td>
+                            <td><a href="<?php echo Url::getBase().'controllers/delete.php?pag=produtos/'.$idPasta.'&tb=images_produto&ch=id&value='.$id ?>" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a></td>
+                        </tr>
+                    <?php endforeach ?>
+                    </tbody>
+                </table>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-2">
@@ -315,7 +335,7 @@
         } ?>
     </div>
     <div class="col">
-        <table class="table">
+        <table class="table" id="table">
             <thead>
                 <tr>
                 <th scope="col">#</th>
@@ -335,12 +355,12 @@
                 <tr>
                 <th scope="row"><?php echo $id; ?></th>
                 <td><?php echo $nome; ?></td>
-                <td>R$ <?php echo $valor; ?></td>
+                <td>R$ <?php echo number_format($valor, 2, ",", ""); ?></td>
                 <td><?php echo $quantidade; ?></td>
                 <td><?php echo $created; ?></td>
                 <td>
                     <div class="btn-group" role="group" aria-label="Basic example">
-                    <a href="<?php echo Url::getBase().'produtos/'.$id ?>"  class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></a>
+                        <a href="<?php echo Url::getBase().'produtos/'.$id ?>"  class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></a>
                         <a href="<?php echo Url::getBase().'controllers/delete.php?pag=produtos&tb=produtos&ch=id&value='.$id ?>" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
                     </div>
                 </td>

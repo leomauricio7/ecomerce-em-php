@@ -88,7 +88,7 @@
 
                 <p class="product-description"><?php echo $descricao ?></p>
 
-                <h4 class="price">Valor: <span>R$ <?php echo $valor ?></span></h4>
+                <h4 class="price">Valor: <span>R$ <?php echo number_format($valor, 2, ",", "") ?></span></h4>
                 <h5 class="sizes">Categoria:
                   <span class="size" data-toggle="tooltip" title="small"><?php echo $categoria ?></span>
                 </h5>
@@ -151,7 +151,7 @@
               </div>
               <div class="details">
                 <h4><?php echo $nome ?></h4>
-                <span>R$ <?php echo $valor ?></span>
+                <span>R$ <?php echo number_format($valor, 2, ",", "") ?></span>
                 <div class="carrinho">
                   <a href=""><i class="fa fa-cart-plus"></i></a>
                 </div>                

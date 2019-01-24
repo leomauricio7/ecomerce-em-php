@@ -20,7 +20,7 @@
           
           <h2>Pedidos</h2>
           <div class="table-responsive">
-            <table class="table table-striped table-sm">
+            <table class="table table-striped table-sm" id="table">
               <thead>
                 <tr>
                   <th>#</th>

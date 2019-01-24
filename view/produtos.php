@@ -85,7 +85,7 @@
                   </div>
                   <div class="details">
                     <h4><?php echo $nome ?></h4>
-                    <span>R$ <?php echo $valor ?></span>
+                    <span>R$ <?php echo number_format($valor, 2, ",", "") ?></span>
                     <div class="carrinho">
                       <a href=""><i class="fa fa-cart-plus"></i></a>
                     </div>                                 

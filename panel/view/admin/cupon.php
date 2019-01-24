@@ -32,14 +32,24 @@
                 <input type="text" class="form-control" name="nome" aria-describedby="emailHelp" placeholder="Nome" required autofocus>
                 <small id="emailHelp" class="form-text text-muted">Nome do cupon</small>
             </div>
-            <div class="form-group">
-                <label for="exampleInputEmail1">Desconto</label>
-                <input type="text" class="form-control" maxlength="6" name="desconto" placeholder="R$ 0.00" required>
-                <small class="form-text text-muted">Valor do desconto</small>
-            </div>
-            <div class="form-group">
+            <div class="form-row">
+                <div class="form-group col-4">
+                    <label for="exampleInputEmail1">Tipo</label>
+                    <select class="form-control" name="tipo" required>
+                        <option value="">--Selecione--</option>
+                        <option value="1">% Porcentagem</option>
+                        <option value="2">R$ Reais</option>
+                    </select> 
+                </div>
+                <div class="form-group col-3">
+                    <label for="exampleInputEmail1">Desconto</label>
+                    <input type="text" class="form-control" maxlength="6" name="desconto" placeholder="R$ ou %" required>
+                    <small class="form-text text-muted">Desconto em R$ ou %</small>
+                </div>
+                <div class="form-group col-5">
                 <label for="exampleInputPassword1">Validade</label>
                 <input type="date" class="form-control" name="validade" placeholder="" required>
+            </div>
             </div><hr>
             <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Finalizar Cadastro</button>
         </form>
@@ -52,7 +62,7 @@
                     $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
                     $update = new Update();
 
-                    $dados = ['nome' => $dados['nome'], 'desconto' => $dados['desconto'], 'validade' => $dados['validade']];
+                    $dados = ['nome' => $dados['nome'], 'tipo'=>$dados['tipo'], 'desconto' => $dados['desconto'], 'validade' => $dados['validade']];
                     $update->ExeUpdate('cupons', $dados, 'WHERE id = :id', 'id=' . $id . '');
     
                     if ($update->getResult()): ?>
@@ -80,22 +90,33 @@
                     <input type="text" class="form-control" name="nome" aria-describedby="emailHelp" placeholder="Nome"  value="<?php echo $nome ?>"required autofocus>
                     <small id="emailHelp" class="form-text text-muted">Nome do cupon</small>
                 </div>
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Desconto</label>
-                    <input type="text" class="form-control" maxlength="6" name="desconto" placeholder="R$ 0.00"  value="<?php echo $desconto ?>"  required>
-                    <small class="form-text text-muted">Valor do desconto</small>
+                <div class="form-row">
+                    <div class="form-group col-4">
+                        <label for="exampleInputEmail1">Tipo</label>
+                        <select class="form-control" name="tipo" required>
+                            <option value="">--Selecione--</option>
+                            <option value="1" <?php echo $tipo == 1 ? 'selected' : ''?>>% Porcentagem</option>
+                            <option value="2" <?php echo $tipo == 2 ? 'selected' : ''?>>R$ Reais</option>
+                        </select> 
+                    </div>
+                    <div class="form-group col-3">
+                        <label for="exampleInputEmail1">Desconto</label>
+                        <input type="text" class="form-control" maxlength="6" name="desconto" placeholder="R$ 0.00"  value="<?php echo $desconto ?>"  required>
+                        <small class="form-text text-muted">Desconto R$ ou %</small>
+                    </div>
+                    <div class="form-group col-5">
+                        <label for="exampleInputPassword1">Validade</label>
+                        <input type="date" class="form-control" name="validade" value="<?php echo $validade ?>" required>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="exampleInputPassword1">Validade</label>
-                    <input type="date" class="form-control" name="validade" value="<?php echo $validade ?>" required>
-                </div><hr>
+                    <hr>
                 <button type="submit" class="btn btn-sm btn-outline-warning"><i class="fa fa-save"></i> Salvar Alteraçoes</button>
             </form>
             <?php endforeach ?>
         <?php } ?>
     </div>
     <div class="col">
-        <table class="table">
+        <table class="table" id="table">
             <thead>
                 <tr>
                 <th scope="col">#</th>
@@ -114,7 +135,7 @@
                 <tr>
                 <th scope="row"><?php echo $id; ?></th>
                 <td><?php echo $nome; ?></td>
-                <td>R$ <?php echo $desconto; ?></td>
+                <td><?php echo $tipo == 1 ? $desconto.'% ' : 'R$ '.$desconto; ?></td>
                 <td><?php echo $validade; ?></td>
                 <td>
                     <div class="btn-group" role="group" aria-label="Basic example">

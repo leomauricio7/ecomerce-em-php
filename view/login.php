@@ -46,7 +46,11 @@
               $valida->setLogin(filter_input(INPUT_POST, 'email', FILTER_SANITIZE_STRING));
               $valida->setSenha(filter_input(INPUT_POST, 'senha', FILTER_SANITIZE_STRING));
               if ($valida->logar()) {
+                if($_SESSION['idTipo'] == 2){
+                  echo '<script>window.history.go(-2);</script>';
+                }else{
                   echo '<script>window.location.href="panel/";</script>';
+                }
               } else {
                   echo '<script>window.history.go(-1);</script>';
               }

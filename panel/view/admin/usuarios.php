@@ -202,7 +202,7 @@
         <?php } ?>
     </div>
     <div class="col">
-        <table class="table">
+        <table class="table" id="table">
             <thead>
                 <tr>
                 <th scope="col">#</th>

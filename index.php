@@ -165,24 +165,12 @@ require_once('./panel/vendor/autoload.php');
   <!--api cep-->
   <script type="text/javascript" src="<?php echo Url::getBase(); ?>panel/public/js/busca_cep.js"></script>
   <script>
-    $('.plus').on('click', function(e) {
-      e.preventDefault();
-        var self = $(this);
-        var idProduto = self.attr('href');
-        $.ajax({
-          url:'./panel/controllers/pedido.php',
-          type: 'post',
-          dataType: 'html',
-          data: 'idProduto='+idProduto,
-          success: (res) =>{
-            console.log('success',res)
-          },  
-          error: (err) => {
-              console.log(err)
-          }
-        });
-        
+  $(function(){
+    $('.plus').click(function(){
+      var idForm = $(this).attr('alt');
+      $('#form-'+idForm).submit();
     });
+  })
   </script>
 </body>
 </html>

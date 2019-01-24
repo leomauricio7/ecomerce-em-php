@@ -95,7 +95,7 @@ endif;
     </script>
     <script>
     $(document).ready(function(){
-      $('table').dataTable({
+      $('#table').dataTable({
         paginate: true,
         scrollY: 300,
         "language": {
@@ -184,18 +184,15 @@ endif;
     </script>
     <script>
       $(document).ready(function(){
-        $('#cor').hide('fast');
         $('#tamanho').hide('fast');
         $('#feiche').hide('fast');
       });
       var categoria = $('#categoria');
           categoria.change(function () {
            if(categoria.val() == 17){
-            $('#cor').show('slow');
             $('#tamanho').show('slow');
             $('#feiche').show('slow');
            }else{
-            $('#cor').hide('fast');
             $('#tamanho').hide('fast');
             $('#feiche').hide('fast');
            }
