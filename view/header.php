@@ -53,123 +53,21 @@
               Produtos
             </a>
             <ul class="dropdown-menu">
-
+              <?php
+              $read = new Read();
+              $read->ExeRead('categorias');
+              foreach($read->getResult() as $categoria):
+                extract($categoria);
+              ?>
               <li>
-                <a href="#">
-                  <img src="./img/cat/cat-airsoft.png">
-                  Airsoft
+                <a href="<?php echo url::getBase().'produtos/'.$slug ?>">
+                  <img src="<?php echo url::getBase().'panel/uploud/categoria/'.$id.'/'.$image ?>">
+                 <?php echo $nome ?>
                 </a>
               </li>    
+              <?php endforeach ?>
               <li>
-                <a href="#">
-                  <img src="./img/cat/cat-alicate.png">
-                  Alicates
-                </a>
-              </li>                         
-              <li>
-                <a href="#">
-                  <img src="./img/cat/cat-bandoleira.png">
-                  Bandoleiras
-                </a>
-              </li>  
-              <li>
-                <a href="#">
-                  <img src="./img/cat/cat-bastao.png">
-                  Bastões
-                </a>
-              </li>   
-              <li>
-                <a href="#">
-                  <img src="./img/cat/cat-bolsa.png">
-                  Bolsas
-                </a>
-              </li>  
-              <li>
-                <a href="#">
-                  <img src="./img/cat/cat-camisa.png">
-                  Camisas
-                </a>
-              </li> 
-              <li>
-                <a href="#">
-                  <img src="./img/cat/cat-canivete.png">
-                  Canivetes
-                </a>
-              </li> 
-              <li>
-                <a href="#">
-                  <img src="./img/cat/cat-carregador.png">
-                  Carregadores
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <img src="./img/cat/cat-chapeu.png">
-                  Chapéus
-                </a>
-              </li>  
-              <li>
-                <a href="#">
-                  <img src="./img/cat/cat-cinto.png">
-                  Cintos
-                </a>
-              </li>  
-              <li>
-                <a href="#">
-                  <img src="./img/cat/cat-colete.png">
-                  Coletes
-                </a>
-              </li>                                                                                                                        
-              <li>
-                <a href="#">
-                  <img src="./img/cat/cat-faca.png">
-                  Facas
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <img src="./img/cat/cat-lanterna.png">
-                  Lanternas
-                </a>
-              </li> 
-              <li>
-                <a href="#">
-                  <img src="./img/cat/cat-mochila.png">
-                  Mochilas
-                </a>
-              </li>              
-              <li>
-                <a href="#">
-                  <img src="./img/cat/cat-multiuso.png">
-                  Multiuso
-                </a>
-              </li> 
-              <li>
-                <a href="#">
-                  <img src="./img/cat/cat-patch.png">
-                  Patch
-                </a>
-              </li> 
-              <li>
-                <a href="#">
-                  <img src="./img/cat/cat-porta-carregador.png">
-                  Porta carregador
-                </a>
-              </li> 
-              <li>
-                <a href="#">
-                  <img src="./img/cat/cat-pulseira.png">
-                  Pulseiras
-                </a>
-              </li>  
-              <li>
-                <a href="#">
-                  <img src="./img/cat/cat-spray.png">
-                  Spray de Pimenta
-                </a>
-              </li> 
-              <li>
-                <a href="#" style="color: #186548">
+                <a href="<?php echo url::getBase().'produtos'?>" style="color: #186548">
                   <img src="<?php echo Url::getBase() ?>img/cat/cat-todos.png">
                   Ver todos
                 </a>

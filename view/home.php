@@ -24,151 +24,33 @@
           <h2>Produtos</h2>
         </div>
         <div class="row">
+        <?php 
+        $read = new Read();
+        $read->ExeRead('produtos','ORDER BY id DESC LIMIT 8');
+        foreach($read->getResult() as $produtos):
+          extract($produtos);
+        ?>
           <div class="col-lg-3 col-md-6">
             <div class="member">
               <div class="pic">
-                <img class="image" src="img/team-1.jpg" alt="">
+                <img class="image" src="<?php echo Url::getBase().'panel/uploud/produto/'.$id.'/'.Validation::getImagesProdutos($id) ?>" alt="">
                   <div class="middle">
-                    <div class="text"><i class="fa fa-search"></i></div>
+                    <a href="<?php echo Url::getBase().'produto/'.$slug ?>">
+                      <div class="text"><i class="fa fa-search"></i></div>
+                    </a>
                   </div>
               </div>
               <div class="details">
-                <h4>Descrição do Produto</h4>
-                <span>R$ 149,90</span>
+                <h4><?php echo $nome ?></h4>
+                <span>R$ <?php echo $valor ?></span>
                 <div class="carrinho">
-                  <a href=""><i class="fa fa-cart-plus"></i></a>
+                  <a href="<?php echo $id ?>" class="plus"><i class="fa fa-cart-plus"></i></a>
                 </div>                
               </div>
             </div>
           </div>
+        <?php endforeach ?>
 
-          <div class="col-lg-3 col-md-6">
-            <div class="member">
-              <div class="pic">
-                <img src="img/team-2.jpg" alt="">
-                  <div class="middle">
-                    <div class="text"><i class="fa fa-search"></i></div>
-                  </div>                
-              </div>
-              <div class="details">
-                <h4>Descrição do Produto</h4>
-                <span>R$ 149,90</span>
-                <div class="carrinho">
-                  <a href=""><i class="fa fa-cart-plus"></i></a>
-                </div>
-              </div>          
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-6">
-            <div class="member">
-              <div class="pic">
-                <img src="img/team-3.jpg" alt="">
-                  <div class="middle">
-                    <div class="text"><i class="fa fa-search"></i></div>
-                  </div>                
-              </div>
-              <div class="details">
-                <h4>Descrição do Produto</h4>
-                <span>R$ 149,90</span>
-                <div class="carrinho">
-                  <a href=""><i class="fa fa-cart-plus"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-6">
-            <div class="member">
-              <div class="pic">
-                <img src="img/team-4.jpg" alt="">
-                  <div class="middle">
-                    <div class="text"><i class="fa fa-search"></i></div>
-                  </div>                
-              </div>
-              <div class="details">
-                <h4>Descrição do Produto</h4>
-                <span>R$ 149,90</span>
-                <div class="carrinho">
-                  <a href=""><i class="fa fa-cart-plus"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-lg-3 col-md-6">
-            <div class="member">
-              <div class="pic">
-                <img src="img/team-5.jpg" alt="">
-                  <div class="middle">
-                    <div class="text"><i class="fa fa-search"></i></div>
-                  </div>                
-              </div>
-              <div class="details">
-                <h4>Descrição do Produto</h4>
-                <span>R$ 149,90</span>
-                <div class="carrinho">
-                  <a href=""><i class="fa fa-cart-plus"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-6">
-            <div class="member">
-              <div class="pic">
-                <img src="img/team-6.jpg" alt="">
-                  <div class="middle">
-                    <div class="text"><i class="fa fa-search"></i></div>
-                  </div>                
-              </div>
-              <div class="details">
-                <h4>Descrição do Produto</h4>
-                <span>R$ 149,90</span>
-                <div class="carrinho">
-                  <a href=""><i class="fa fa-cart-plus"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-6">
-            <div class="member">
-              <div class="pic">
-                <img src="img/team-7.jpg" alt="">
-                  <div class="middle">
-                    <div class="text"><i class="fa fa-search"></i></div>
-                  </div>                
-              </div>
-              <div class="details">
-                <h4>Descrição do Produto</h4>
-                <span>R$ 149,90</span>
-                <div class="carrinho">
-                  <a href=""><i class="fa fa-cart-plus"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-6">
-            <div class="member">
-              <div class="pic">
-                <img src="img/team-8.jpg" alt="">
-                  <div class="middle">
-                    <div class="text"><i class="fa fa-search"></i></div>
-                  </div>                
-              </div>
-              <div class="details">
-                <h4>Descrição do Produto</h4>
-                <span>R$ 149,90</span>
-                <div class="carrinho">
-                  <a href=""><i class="fa fa-cart-plus"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>        
 
       </div>

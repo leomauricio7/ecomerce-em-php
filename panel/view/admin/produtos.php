@@ -40,6 +40,10 @@
                 </div>
             </div>
             <div class="form-group">
+                <label for="inputAddress">Descrição do Produto</label>
+                <textarea class="form-control" name="descricao"required></textarea>
+            </div>
+            <div class="form-group">
                 <label for="inputAddress">Imagens do produto</label>
                 <input type="file" class="form-control" name="images[]" multiple required>
             </div>
@@ -128,6 +132,7 @@
                 </div>
             </div><hr>
             <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Cadastrar Produto</button>
+        <hr>
         </form>
     <?php }else{ ?>
        <!--se for edição de produto -->
@@ -147,6 +152,7 @@
         if($dados['id_categoria'] == 17){
             $dados = [
                 'nome' => $dados['nome'],
+                'descricao' => $dados['descricao'],
                 'slug' => $dados['slug'],
                 'peso' => $dados['peso'],
                 'altura' => $dados['altura'],
@@ -162,6 +168,7 @@
         }else{
             $dados = [
                 'nome' => $dados['nome'],
+                'descricao' => $dados['descricao'],
                 'slug' => $dados['slug'],
                 'peso' => $dados['peso'],
                 'altura' => $dados['altura'],
@@ -208,6 +215,10 @@
                     <label>Slug</label>
                     <input type="text" class="form-control" name="slug" id="slug" value="<?php echo $slug ?>" readonly required>
                 </div>
+            </div>
+            <div class="form-group">
+                <label for="inputAddress">Descrição do Produto</label>
+                <textarea class="form-control" name="descricao"required><?php echo $descricao ?></textarea>
             </div>
             <div class="form-group">
                 <label for="inputAddress">Imagens do produto</label>

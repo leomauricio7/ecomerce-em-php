@@ -26,7 +26,7 @@
     <div class="container" id="team" class="wow fadeInUp">
         <div class="row">
             <div class="section-header">
-              <a href="./index.php"><i class="fa fa-home"></i> Início</a> / Minha Conta         
+              <a href="<?php echo Url::getBase(); ?>"><i class="fa fa-home"></i> Início</a> / Minha Conta         
             </div>                  
         </div>                      
     </div>   
@@ -65,7 +65,7 @@
               <td>
                 <div class="form-group">
                   <label for="pwd">E-mail *:</label>
-                  <input type="text" class="form-control" name="email" id="pwd" required>
+                  <input type="email" class="form-control" name="email" id="pwd" required>
                 </div>                 
               </td>
             </tr>
@@ -74,14 +74,14 @@
               <td>
                 <div class="form-group">
                   <label for="pwd">Senha *:</label>
-                  <input type="pass" class="form-control" name="senha" id="pwd" required>
+                  <input type="password" class="form-control" name="senha" id="pwd" required>
                 </div>                  
               </td>
             </tr>
 
             <tr>
               <td align="center">
-                <a href="./index?p=finalizar-compras">  
+                <a href="">  
                 <button class="btn btn-default-search-top" type="submit" style="font-weight: bold;">
                   Acessar
                 </button> 
@@ -92,6 +92,11 @@
             <tr>
               <td>
                 <a href="<?php echo Url::getBase() ?>senha-perdida">Perdeu sua senha?</a>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <a href="<?php echo Url::getBase() ?>cadastro">Não possui cadastro? cadastre-se aqui!</a>
               </td>
             </tr>
           </tbody>  

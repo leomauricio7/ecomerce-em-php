@@ -22,17 +22,17 @@ require_once('./panel/vendor/autoload.php');
 
 
   <!-- Libraries CSS Files -->
-  <link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-  <link href="lib/animate/animate.min.css" rel="stylesheet">
-  <link href="lib/ionicons/css/ionicons.min.css" rel="stylesheet">
-  <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-  <link href="lib/magnific-popup/magnific-popup.css" rel="stylesheet">
-  <link href="lib/ionicons/css/ionicons.min.css" rel="stylesheet">
-  <link href="css/carrousel.css" rel="stylesheet">
+  <link href="<?php echo Url::getBase(); ?>lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="<?php echo Url::getBase(); ?>lib/animate/animate.min.css" rel="stylesheet">
+  <link href="<?php echo Url::getBase(); ?>lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+  <link href="<?php echo Url::getBase(); ?>lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+  <link href="<?php echo Url::getBase(); ?>lib/magnific-popup/magnific-popup.css" rel="stylesheet">
+  <link href="<?php echo Url::getBase(); ?>lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+  <link href="<?php echo Url::getBase(); ?>css/carrousel.css" rel="stylesheet">
 
   <!-- Main Stylesheet File -->
-  <link href="css/style.css" rel="stylesheet">
-  <link rel="stylesheet" href="lib/bootstrap/bootstrap.min.css">
+  <link href="<?php echo Url::getBase(); ?>css/style.css" rel="stylesheet">
+  <link rel="stylesheet" href="<?php echo Url::getBase(); ?>lib/bootstrap/bootstrap.min.css">
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.1/jquery.min.js"></script> 
   <style type="text/css">
     .float-left {
@@ -144,23 +144,45 @@ require_once('./panel/vendor/autoload.php');
   <!-- JavaScript Libraries -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>  
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script src="lib/jquery/jquery-migrate.min.js"></script>
-  <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="lib/easing/easing.min.js"></script>
-  <script src="lib/superfish/hoverIntent.js"></script>
-  <script src="lib/superfish/superfish.min.js"></script>
-  <script src="lib/wow/wow.min.js"></script>
-  <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-  <script src="lib/magnific-popup/magnific-popup.min.js"></script>
-  <script src="lib/sticky/sticky.js"></script>
+  <script src="<?php echo Url::getBase(); ?>lib/jquery/jquery-migrate.min.js"></script>
+  <script src="<?php echo Url::getBase(); ?>lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="<?php echo Url::getBase(); ?>lib/easing/easing.min.js"></script>
+  <script src="<?php echo Url::getBase(); ?>lib/superfish/hoverIntent.js"></script>
+  <script src="<?php echo Url::getBase(); ?>lib/superfish/superfish.min.js"></script>
+  <script src="<?php echo Url::getBase(); ?>lib/wow/wow.min.js"></script>
+  <script src="<?php echo Url::getBase(); ?>lib/owlcarousel/owl.carousel.min.js"></script>
+  <script src="<?php echo Url::getBase(); ?>lib/magnific-popup/magnific-popup.min.js"></script>
+  <script src="<?php echo Url::getBase(); ?>lib/sticky/sticky.js"></script>
   <!-- Uncomment below if you want to use dynamic Google Maps -->
   <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD8HeI8o-c1NppZA-92oYlXakhDPYR7XMY"></script> -->
 
   <!-- Contact Form JavaScript File -->
-  <script src="contactform/contactform.js"></script>
+  <script src="<?php echo Url::getBase(); ?>contactform/contactform.js"></script>
 
   <!-- Template Main Javascript File -->
-  <script src="js/main.js"></script>
-
+  <script src="<?php echo Url::getBase(); ?>js/main.js"></script>
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <!--api cep-->
+  <script type="text/javascript" src="<?php echo Url::getBase(); ?>panel/public/js/busca_cep.js"></script>
+  <script>
+    $('.plus').on('click', function(e) {
+      e.preventDefault();
+        var self = $(this);
+        var idProduto = self.attr('href');
+        $.ajax({
+          url:'./panel/controllers/pedido.php',
+          type: 'post',
+          dataType: 'html',
+          data: 'idProduto='+idProduto,
+          success: (res) =>{
+            console.log('success',res)
+          },  
+          error: (err) => {
+              console.log(err)
+          }
+        });
+        
+    });
+  </script>
 </body>
 </html>

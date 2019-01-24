@@ -1,14 +1,14 @@
-<?php 
+<?php
 require_once('./controllers/init.inc');
 require_once('./vendor/autoload.php');
-Validation::validaSession();
+
 Validation::validaSession();
 if (isset($_GET['logout'])):
-  if ($_GET['logout'] == 'confirmar'):
+  if ($_GET['logout'] == 'true'):
       Validation::deslogar();
   endif;
 endif;
-$typeUser = $_SESSION['idTipo'];
+
 ?>
 <!doctype html>
 <html lang="pt-br">
@@ -40,6 +40,7 @@ $typeUser = $_SESSION['idTipo'];
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
           <?php
+            if($_SESSION['idTipo'] == 1){
               $pagina = Url::getURL(0);
               if($pagina == null){$pagina = 'home';}
               if (file_exists("view/admin/" . $pagina . ".php")):
@@ -47,6 +48,9 @@ $typeUser = $_SESSION['idTipo'];
               else:
                   require "view/admin/404.php";
               endif;
+            }else{
+              require "view/admin/pedidos.php";
+            }
           ?>
         </main>
       </div>

@@ -16,7 +16,7 @@ class User {
         $create->ExeCreate(self::Entity, $this->Dados);
         if ($create->getResult()):
             $this->Result = $create->getResult();
-            $this->Msg = "<div class='alert alert-success alert-dismissible fade show' role='alert'>
+            $this->Msg = "<div class='alert alert-success' role='alert'>
                     <strong><i class='fa fa-check-circle'></i></strong> Usuário <strong>{$this->Dados['nome']}</strong> foi cadastrado com sucesso.
                     <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
                         <span aria-hidden='true' style='cursor: pointer;'>&times;</span>

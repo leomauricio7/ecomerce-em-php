@@ -1,6 +1,7 @@
 <nav class="col-md-2 d-none d-md-block bg-light sidebar">
   <div class="sidebar-sticky">
     <ul class="nav flex-column">
+    <?php if($_SESSION['idTipo'] == 1){ ?>
       <li class="nav-item">
         <a class="nav-link active" href="<?php echo Url::getBase();?>">
           <span data-feather="home"></span>
@@ -70,6 +71,14 @@
           Tamanhos
         </a>
       </li>
+    <?php }else{ ?>
+      <li class="nav-item">
+        <a class="nav-link" href="<?php echo Url::getBase();?>pedidos">
+          <span data-feather="briefcase"></span>
+          Meus Pedidos
+        </a>
+      </li>
+    <?php } ?>
     </ul>
   </div>
 </nav>

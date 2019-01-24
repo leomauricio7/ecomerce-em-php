@@ -42,15 +42,13 @@ class Validation extends Conn {
 
     public function logar() {
         $validaCPF = new ValidaCPFCNPJ($this->getLogin());
-        if ($validaCPF->valida()) {
             $pdo = parent::getConn();
-            $logar = $pdo->prepare("SELECT * FROM usarios WHERE email = ?");
+            $logar = $pdo->prepare("SELECT * FROM usuarios WHERE email = ?");
             $logar->bindValue(1, $this->getLogin());
             $logar->execute();
             if ($logar->rowCount() == 1) {
                 $dados = $logar->fetch(PDO::FETCH_ASSOC);
                 if (password_verify($this->getSenha(), $dados['senha'])) {
-                    if ($dados['id_situacao'] == 1) {
                         $_SESSION['user'] = $dados['nome'];
                         $_SESSION['email'] = $dados['email'];
                         $_SESSION['senha'] = $this->getSenha();
@@ -59,22 +57,15 @@ class Validation extends Conn {
                         $_SESSION['logado'] = true;
                         $_SESSION["sessiontime"] = time() + 60 * 20;
                         return true;
-                    } else {
-                        $_SESSION['msg'] = '<div class="alert alert-danger"><h5 align="center"><i class="fa fa-warning"></i> Usuário Desativado</h5></div>';
-                        return false;
-                    }
+
                 } else {
                     $_SESSION['msg'] = '<div class="alert alert-danger"><h5 align="center"><i class="fa fa-warning"></i> Senha incorreta</h5></div>';
                     return false;
                 }
             } else {
-                $_SESSION['msg'] = '<div class="alert alert-danger"><h5 align="center"><i class="fa fa-warning"></i> CPF não cadastrado no sistema</h5></div>';
+                $_SESSION['msg'] = '<div class="alert alert-danger"><h5 align="center"><i class="fa fa-warning"></i> E-mail não cadastrado no sistema</h5></div>';
                 return false;
             }
-        } else {
-            $_SESSION['msg'] = '<div class="alert alert-danger"><h5 align="center"><i class="fa fa-warning"></i> CPF inválido</h5></div>';
-            return false;
-        }
     }
 
     /* Função de recuperar senha */
@@ -82,18 +73,17 @@ class Validation extends Conn {
     public function recuperaSenha() {
         $pdo = parent::getConn();
 
-        $rec = $pdo->prepare("SELECT * FROM usuarios WHERE cpf = ? AND email = ?");
-        $rec->bindValue(1, $this->getCpf());
-        $rec->bindValue(2, $this->getEmail());
+        $rec = $pdo->prepare("SELECT * FROM usuarios WHERE email = ?");
+        $rec->bindValue(1, $this->getEmail());
         $rec->execute();
         if ($rec->rowCount() == 1):
             $_token = hash("sha256", md5(uniqid())); //gerando uma senha aletória para o usuário
             $dados = $rec->fetch(PDO::FETCH_ASSOC);
             $this->setEmail($dados['email']); //pegando o email do usuario
             //if ($this->enviaEmail($_token, $dados['nome'])) {//enviando o email com a nova senha
-            $update = $pdo->prepare("UPDATE users SET _token = :_token WHERE cpf = :cpf");
+            $update = $pdo->prepare("UPDATE usuarios SET _token = :_token WHERE email = :email");
             $update->execute(array(
-                ':cpf' => $this->getCpf(),
+                ':cpf' => $this->getEmail(),
                 ':_token' => $_token
             ));
             $this->Msg = '<div class="alert alert-success">'
@@ -110,7 +100,7 @@ class Validation extends Conn {
         //    return false;
         //}
         else:
-            $this->Msg = '<div class="alert alert-danger"><h5 align="center"><i class="fa fa-warning"></i> Email ou CPF incorretos.</h5></div>';
+            $this->Msg = '<div class="alert alert-danger"><h5 align="center"><i class="fa fa-warning"></i> Email incorreto.</h5></div>';
             return false;
         endif;
     }
@@ -199,7 +189,7 @@ class Validation extends Conn {
         else:
             $pdo = parent::getConn();
             $sql = $pdo->prepare("SELECT * FROM usuarios WHERE email = ?");
-            $sql->bindValue(1, $_SESSION['cpf']);
+            $sql->bindValue(1, $_SESSION['email']);
             $sql->execute();
             if ($sql->rowCount() == 1):
                 $dados = $sql->fetch(PDO::FETCH_ASSOC);
@@ -308,6 +298,39 @@ class Validation extends Conn {
     
     function getMsg() {
         return $this->Msg;
+    }
+
+    public static function getImagesProdutos($id_produto){
+        $nameFile = '';
+        $read = new read();
+        $read->ExeRead('images_produto','where id_produto = '.$id_produto.' limit 1');
+        foreach($read->getresult() as $images):
+            extract($images);
+            $nameFile = $image;
+        endforeach;
+        return $nameFile;
+    }
+
+    public static function getIdCategoria($slug){
+        $idCategoria = '';
+        $read = new read();
+        $read->ExeRead('categorias',"where slug = '$slug'");
+        foreach($read->getresult() as $cat):
+            extract($cat);
+            $idCategoria = $id;
+        endforeach;
+        return $id;
+    }
+
+    public static function getIdProduto($slug){
+        $idProduto = '';
+        $read = new read();
+        $read->ExeRead('produtos',"where slug = '$slug'");
+        foreach($read->getresult() as $prod):
+            extract($prod);
+            $idProduto = $id;
+        endforeach;
+        return $id;
     }
 
 }

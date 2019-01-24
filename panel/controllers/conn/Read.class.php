@@ -17,11 +17,11 @@ class Read extends Conn{
         $this->Execute();
     }
 
-    public function consulta_materia($Termos = null) {
+    public function getProduto($Termos = null) {
         if(empty($Termos)):
             $Termos = '';
         endif;
-        $this->Select = 'SELECT m.id, m.situacao, m.data_create as data,  m.titulo, m.responsavel, m.horario, m.entidade, p.poder as nomePoder, m.file as file FROM materias_solicitadas m INNER JOIN poder p ON m.poder = p.id_poder '.$Termos;
+        $this->Select = 'SELECT p.id as id_produto, p.nome as nomeProduto, p.id_categoria, p.slug, p.valor, c.nome as categoria, p.descricao, p.peso, p.altura, p.largura, p.comprimento, p.quantidade FROM produtos p inner join categorias c on c.id = p.id_categoria '.$Termos;
         $this->ExecuteSQL();
     } 
     
