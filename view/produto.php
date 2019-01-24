@@ -94,7 +94,7 @@
                 </h5>
 
                 <div class="action">
-                  <a href="./index?p=carrinho"><button class="add-to-cart btn btn-default" type="button"><i class="fa fa-cart-plus"></i> ADICIONAR AO CARRINHO</button></a>
+                  <a href="#"><button class="add-to-cart btn btn-default" type="button"><i class="fa fa-cart-plus"></i> ADICIONAR AO CARRINHO</button></a>
                 </div>
 
               </div>
