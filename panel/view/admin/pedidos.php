@@ -27,7 +27,7 @@
                 <th scope="row"><?php echo $id; ?></th>
                 <td><?php echo $valor; ?></td>
                 <td><?php echo $id_usuario; ?></td>
-                <td><?php echo $id_situacao; ?></td>
+                <td><?php echo $id_status; ?></td>
                 <td><?php echo $created; ?></td>
                 <td>
                     <div class="btn-group" role="group" aria-label="Basic example">

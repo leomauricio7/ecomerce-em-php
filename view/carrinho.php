@@ -46,19 +46,36 @@
             </tr>
           </thead>
           <tbody>
+            <?php 
+            $subTotal = 0;
+            $read = new read();
+            $readProdutos = new read();
+            $read->ExeRead('pedidos', 'where id= :id AND id_status = 4', 'id='.$_SESSION['carrinho']);
+            foreach($read->getResult() as $pedido){ 
+              $pedido['id'];
+              $readProdutos->getProdutoPedido('where p.id_pedido = '.$pedido['id']);
+              foreach($readProdutos->getResult() as $produtos){
+                  extract($produtos);
+            ?>
             <tr>
               <th scope="row" style="text-align: center;">
-                <a href="#"><i class="fa fa-trash-o"></i></a>
+                <a href="<?php echo Url::getBase().'panel/controllers/delete.php?pag=../carrinho&tb=produtos_pedido&ch=id&value='.$id_produto_pedido?>"><i class="fa fa-trash-o"></i></a>
               </th>
-              <td><img src="img/team-1.jpg" width="200" /></td>
-              <td>R$ 180,00</td>
+              <td><img src="<?php echo Url::getBase().'panel/uploud/produto/'.$id_produto.'/'.Validation::getImagesProdutos($id_produto) ?>" width="200" /></td>
+              <td>R$ <?php echo number_format($valor, 2, ",", "") ?></td>
               <td>
                 <form>
-                  <input type="number" name="quantity" min="0" max="1000" value="0">
+                  <input type="number" name="quantity" min="0" max="1000" value="<?php echo $quantidade ?>">
                 </form>                
               </td>
-              <td>R$ 180,00</td>
+              <td>R$ <?php echo number_format($total, 2, ",", "") ?></td>
             </tr>
+                 
+            <?php
+              $subTotal+= $total;
+              } 
+            }
+          ?>
             <tr>
               <th scope="row"></th>
               <td colspan="3">
@@ -93,7 +110,7 @@
           <tbody>
             <tr>
               <td><strong>Subtotal</strong></td>
-              <td>R$ 180,00</td>
+              <td>R$ <?php echo number_format($subTotal, 2, ",", "") ?></td>
             </tr>
             <tr>
               <td><strong>Entrega</strong></td>

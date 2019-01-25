@@ -21,8 +21,12 @@
           </div> 
           <div class="col-lg-3 col-md-6">
             <div class="social-links float-right">   
+            <?php if(isset($_SESSION['logado'])){ ?>
+              <a href="<?php echo Url::getBase() ?>panel/" class="twitter"><i class="fa fa-user"></i> <?php echo $_SESSION['user'] ?></a>
+            <?php }else{?>
               <a href="<?php echo Url::getBase() ?>login" class="twitter"><i class="fa fa-arrow-right"></i> Entrar</a>
-              <a href="<?php echo Url::getBase() ?>carrinho" class="facebook"><i class="fa fa-shopping-cart"></i> Carrinho</a>
+            <?php } ?>
+              <a href="<?php echo Url::getBase() ?>carrinho" class="facebook"><span class="badge badge-info"><?php echo Validation::getTotalProdutosCarrinho($_SESSION['carrinho']) ?></span><i class="fa fa-shopping-cart"></i> Carrinho</a>
             </div>
           </div>                               
         </div>        

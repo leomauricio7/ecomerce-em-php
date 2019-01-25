@@ -333,4 +333,15 @@ class Validation extends Conn {
         return $id;
     }
 
+    public static function getTotalProdutosCarrinho($idCarrinho){
+        $read = new Read();
+        $read->ExeRead('produtos_pedido', 'where id_pedido = '.$idCarrinho);
+        $total = 0;
+        foreach($read->getResult() as $produto){
+            extract($produto);
+            $total++;
+        }
+        return $total;
+    }
+
 }

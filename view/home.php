@@ -17,7 +17,6 @@
       
     </div>
   </div>
-
   <section id="team" class="wow fadeInUp">
       <div class="container">
         <div class="section-header">

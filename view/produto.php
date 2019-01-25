@@ -92,9 +92,12 @@
                 <h5 class="sizes">Categoria:
                   <span class="size" data-toggle="tooltip" title="small"><?php echo $categoria ?></span>
                 </h5>
-
                 <div class="action">
-                  <a href="#"><button class="add-to-cart btn btn-default" type="button"><i class="fa fa-cart-plus"></i> ADICIONAR AO CARRINHO</button></a>
+                  <?php require_once('functions.php') ?>
+                    <form method="post" id="form-<?php echo $idProd ?>">
+                      <input type="hidden" name="idProduto" value="<?php echo  $idProd ?>">
+                      <a alt="<?php echo $idProd ?>" class="plus"><button class="add-to-cart btn btn-default" type="button"><i class="fa fa-cart-plus"></i> ADICIONAR AO CARRINHO</button></a>
+                    </form>
                 </div>
 
               </div>
@@ -153,7 +156,11 @@
                 <h4><?php echo $nome ?></h4>
                 <span>R$ <?php echo number_format($valor, 2, ",", "") ?></span>
                 <div class="carrinho">
-                  <a href=""><i class="fa fa-cart-plus"></i></a>
+                    <?php require_once('functions.php') ?>
+                    <form method="post" id="form-<?php echo $id ?>">
+                      <input type="hidden" name="idProduto" value="<?php echo $id ?>">
+                      <a alt="<?php echo $id ?>" class="plus"><i class="fa fa-cart-plus"></i></a>
+                    </form>
                 </div>                
               </div>
             </div>

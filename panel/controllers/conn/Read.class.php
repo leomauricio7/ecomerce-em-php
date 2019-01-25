@@ -24,6 +24,14 @@ class Read extends Conn{
         $this->Select = 'SELECT p.id as id_produto, p.nome as nomeProduto, p.id_categoria, p.slug, p.valor, c.nome as categoria, p.descricao, p.peso, p.altura, p.largura, p.comprimento, p.quantidade FROM produtos p inner join categorias c on c.id = p.id_categoria '.$Termos;
         $this->ExecuteSQL();
     } 
+
+    public function getProdutoPedido($Termos = null) {
+        if(empty($Termos)):
+            $Termos = '';
+        endif;
+        $this->Select = 'SELECT p.id as id_produto_pedido, p.id_pedido, p.id_produto, pd.nome as produto, p.quantidade, pd.valor, (pd.valor*p.quantidade) as total FROM produtos_pedido p join produtos pd on pd.id = p.id_produto '.$Termos;
+        $this->ExecuteSQL();
+    } 
     
     public function getResult() {
         return $this->Result;        
