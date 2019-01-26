@@ -214,39 +214,15 @@ require_once('./panel/vendor/autoload.php');
       });
     </script>
     <script>
-    $(function(){
-      $('#add-produto').click(function(e){
-          e.preventDefault();
-          $('#loading').show();
-          var data = $(this).attr('alt');
-          var dados = data.split(';');
-          var id_produto_pedido = dados[0]; var qtd = dados[1];
-          $.ajax({
-              url: "view/add.php",
-              type: "POST",
-              data: "id_produto_pedido="+id_produto_pedido+"&qtd="+qtd,
-              dataType: "json"
-
-          }).done(function(resposta) {
-              console.log(resposta);
-
-          }).fail(function(jqXHR, textStatus ) {
-              console.log("Request failed: " + textStatus);
-
-          }).always(function() {
-              $('#loading').hide();
-              location.reload();
-          });
-      });
-      $('#del-produto').click(function(e){
-        e.preventDefault();
-        $('#loading').show();
-          var data = $(this).attr('alt');
-          var dados = data.split(';');
-          var id_produto_pedido = dados[0]; var qtd = dados[1];
-          if(qtd > 0){
+      $(function(){
+        $('#add-produto').click(function(e){
+            e.preventDefault();
+            $('#loading').show();
+            var data = $(this).attr('alt');
+            var dados = data.split(';');
+            var id_produto_pedido = dados[0]; var qtd = dados[1];
             $.ajax({
-                url: "view/del.php",
+                url: "view/add.php",
                 type: "POST",
                 data: "id_produto_pedido="+id_produto_pedido+"&qtd="+qtd,
                 dataType: "json"
@@ -258,15 +234,39 @@ require_once('./panel/vendor/autoload.php');
                 console.log("Request failed: " + textStatus);
 
             }).always(function() {
-              $('#loading').hide();
+                $('#loading').hide();
                 location.reload();
             });
-          }else{
-            $('#loading').hide();
-          }
+        });
+        $('#del-produto').click(function(e){
+          e.preventDefault();
+          $('#loading').show();
+            var data = $(this).attr('alt');
+            var dados = data.split(';');
+            var id_produto_pedido = dados[0]; var qtd = dados[1];
+            if(qtd > 0){
+              $.ajax({
+                  url: "view/del.php",
+                  type: "POST",
+                  data: "id_produto_pedido="+id_produto_pedido+"&qtd="+qtd,
+                  dataType: "json"
 
+              }).done(function(resposta) {
+                  console.log(resposta);
+
+              }).fail(function(jqXHR, textStatus ) {
+                  console.log("Request failed: " + textStatus);
+
+              }).always(function() {
+                $('#loading').hide();
+                  location.reload();
+              });
+            }else{
+              $('#loading').hide();
+            }
+
+        });
       });
-    });
     </script>
     <script>
         $('#frete').click(function(){
@@ -278,6 +278,7 @@ require_once('./panel/vendor/autoload.php');
             $('#loading').show();
             var data = $('#form-frete').serialize();
             var subTotal = $('#subtotal').val();
+            console.log(data)
             $.ajax({
               type: "POST",
               url: "view/frete.php",
@@ -300,6 +301,29 @@ require_once('./panel/vendor/autoload.php');
             }).always(function() {
               $('#loading').hide();
                 //location.reload();
+            });
+        });
+    </script>
+    <script>
+        $('#checkCupon').click( function(e){
+            e.preventDefault();
+            $('#loading').show();
+            var data = $('#form-cupon').serialize();
+            console.log(data);
+            $.ajax({
+              type: "POST",
+              url: "view/cupon.php",
+              data: data,
+              dataType: "json"
+            }).done(function(resposta) {
+                console.log(resposta);
+                $('#loading').hide('fast');
+
+            }).fail(function(jqXHR, textStatus ) {
+                console.log("Request failed: " + textStatus);
+            }).always(function() {
+              $('#loading').hide();
+                location.reload();
             });
         });
     </script>

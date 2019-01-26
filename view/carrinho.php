@@ -36,7 +36,8 @@
     <div class="row">
       <div class="section-header">
         <h2>CARRINHO DE COMPRAS</h2>
-        <p>Lista de produtos adicionados</p>            
+        <p>Lista de produtos adicionados</p>   
+        <?php if(isset($_SESSION['msg'])){ echo $_SESSION['msg']; unset($_SESSION['msg']); } ?>     
         <table class="table table-bordered text-center">
           <thead style="background-color: #e8e8e8">
             <tr>
@@ -52,10 +53,12 @@
             if(isset($_SESSION['carrinho'])){
             $subTotal = 0;
             $read = new read();
+            $cupon = null;
             $readProdutos = new read();
             $read->ExeRead('pedidos', 'where id= :id AND id_status = 4', 'id='.$_SESSION['carrinho']);
             foreach($read->getResult() as $pedido){ 
               $pedido['id'];
+              $cupon =  $pedido['id_cupon'];
               $readProdutos->getProdutoPedido('where p.id_pedido = '.$pedido['id']);
               foreach($readProdutos->getResult() as $produtos){
                   extract($produtos);
@@ -84,11 +87,13 @@
             <tr>
               <th scope="row"></th>
               <td colspan="2">
-                <form>
+                <form method="post" id="form-cupon">
                   <div class="input-group">
-                    <input type="text" class="form-control" placeholder="CUPOM DE DESCONTO">
+                    <input type="text" class="form-control" placeholder="CUPOM DE DESCONTO" name="cupon" required>
+                    <input type="hidden" name="subTotalPedido" value="<?php echo $subTotal ?>">
+                    <input type="hidden" name="id_pedido" value="<?php echo $_SESSION['carrinho'] ?>">
                     <div class="input-group-btn">
-                      <button class="btn btn-default-search-top" type="submit" style="font-weight: bold;">
+                      <button id="checkCupon" class="btn btn-default-search-top" type="submit" style="font-weight: bold;">
                         APLICAR DESCONTO
                       </button>
                     </div>
@@ -96,7 +101,7 @@
                 </form>              
               </td>
               <td><img src="http://www.fundecto.com.br/images/desconto.png" width="20"/> <strong>DESCONTO</strong></td>
-              <td><span>-</span></td>
+              <td><span><?php echo $cupon != '' ? Validation::getcupon($cupon) : '-' ?></span></td>
             </tr>
           </tbody>
           <?php } ?>
@@ -108,6 +113,7 @@
         
     </div>  
     <?php if(isset($_SESSION['carrinho'])) {?>  
+    <?php $subTotal = $cupon != null ? Validation::getSubTotal($cupon, $subTotal) : $subTotal; ?>
     <div class="col-lg-4 col-md-6" style="text-align: center;">
         <table class="table table-bordered text-center" width="100%">
           <thead>
@@ -118,7 +124,7 @@
           <tbody>
             <tr>
               <td><strong>Subtotal</strong></td>
-              <td>R$ <?php echo number_format($subTotal, 2, ",", "") ?></td>
+              <td>R$ <span id="tolta-com-desconto"><?php echo number_format($subTotal, 2, ",", "") ?></sapan></td>
             </tr>
             <tr>
               <td><img src="https://ap.imagensbrasil.org/images/caminhao_entrega.png" width="50"></td>
@@ -126,7 +132,7 @@
                 <a id="frete" style="cursor: pointer;"><i class="fa fa-car"></i> Calcular Frete</a><br>
                 <span id="valor_frete"></span>
                 <form method="POST" id="form-frete" action="" style="display:none;">
-                    <input type="hidden" id="subtotal" name="valor" value="<?php echo $subTotal ?>">
+                    <input type="hidden" id="subtotal" name="valor" value="<?php echo number_format($subTotal) ?>">
                     <input type="hidden" name="pedido_id" value="<?php echo $_SESSION['carrinho'] ?>">
                     <div class="form-group">
                         <input type="radio" name="tipo_frete" value="41106" required>PAC

@@ -355,4 +355,40 @@ class Validation extends Conn {
         return $idcategoria;
     }
 
+    public static function getcupon($idCupon){
+        $tipoCupon = '';
+        $descontoCupon = '';
+        $read = new Read();
+        $read->ExeRead('cupons', 'where id = :id', 'id='.$idCupon);
+        foreach($read->getResult() as $cupon){
+            extract($cupon);
+            $tipoCupon = $tipo;
+            $descontoCupon = $desconto;
+        }
+        return $tipoCupon == 1 ? $descontoCupon.' %': 'R$ '.$descontoCupon;
+    }
+
+    public static function getSubTotal($idCupon, $subTotal){
+        $valorFinal = '';
+        $tipoCupon = '';
+        $descontoCupon = '';
+        $read = new Read();
+        $read->ExeRead('cupons', 'where id = :id', 'id='.$idCupon);
+        foreach($read->getResult() as $cupon){
+            extract($cupon);
+            $tipoCupon = $tipo;
+            $descontoCupon = $desconto;
+        }
+
+        if($tipoCupon == 1){
+            $porcentagem = $descontoCupon/100;
+            $valorFinal = $subTotal - ($porcentagem * $subTotal);
+
+        }elseif($tipoCupon == 2){
+            $valorFinal = $subTotal - $descontoCupon;
+        }
+
+        return $valorFinal;
+    }
+
 }
