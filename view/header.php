@@ -8,9 +8,9 @@
             </div>
           </div> 
           <div class="col-lg-3 col-md-6">
-              <form>
+              <form method="GET" action="<?php echo Url::getBase()?>produtos">
                 <div class="input-group">
-                  <input type="text" class="form-control" placeholder="Pesquisa produto...">
+                  <input type="text" class="form-control" name="search" placeholder="Pesquisa produto..." required>
                   <div class="input-group-btn">
                     <button class="btn btn-default-search-top" type="submit">
                       <i class="fa fa-search"></i>

@@ -67,9 +67,19 @@
                   
             if(Url::getURL(1) != ''){
               $categoria = Validation::getIdCategoria(Url::getURL(1));
-              $read->ExeRead('produtos', 'WHERE id_categoria = '.$categoria.'', 'ORDER BY id DESC');
+              if(isset($_GET['search'])){
+                $search = $_GET['search'];
+                $read->ExeRead('produtos', "WHERE id_categoria = $categoria AND nome LIKE '%$search%' ORDER BY id DESC");
+              }else{
+                $read->ExeRead('produtos', 'WHERE id_categoria = '.$categoria.'', 'ORDER BY id DESC');
+              }
             }else{
-              $read->ExeRead('produtos','ORDER BY id DESC');
+              if(isset($_GET['search'])){
+                $search = $_GET['search'];
+                $read->ExeRead('produtos',"WHERE nome LIKE '%$search%' ORDER BY id DESC");
+              }else{
+                $read->ExeRead('produtos','ORDER BY id DESC');
+              }
             }
 
             foreach($read->getResult() as $produtos):
