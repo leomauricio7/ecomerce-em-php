@@ -6,6 +6,20 @@ namespace Composer\Autoload;
 
 class ComposerStaticInit1c7a30507412c207bb0d2b4d0a358294
 {
+    public static $prefixLengthsPsr4 = array (
+        'P' => 
+        array (
+            'PagSeguro\\' => 10,
+        ),
+    );
+
+    public static $prefixDirsPsr4 = array (
+        'PagSeguro\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/pagseguro/pagseguro-php-sdk/source',
+        ),
+    );
+
     public static $classMap = array (
         'Banner' => __DIR__ . '/../..' . '/controllers/class/Banner.class.php',
         'Categoria' => __DIR__ . '/../..' . '/controllers/class/Categoria.class.php',
@@ -33,6 +47,8 @@ class ComposerStaticInit1c7a30507412c207bb0d2b4d0a358294
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
+            $loader->prefixLengthsPsr4 = ComposerStaticInit1c7a30507412c207bb0d2b4d0a358294::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit1c7a30507412c207bb0d2b4d0a358294::$prefixDirsPsr4;
             $loader->classMap = ComposerStaticInit1c7a30507412c207bb0d2b4d0a358294::$classMap;
 
         }, null, ClassLoader::class);

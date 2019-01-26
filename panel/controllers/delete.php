@@ -11,6 +11,9 @@ if (isset($_GET) && !empty($_GET)) {
     $delete = new Delete();
     //removendo a ultima caractere da instrução
     //$pag = substr($read_pag,0,-1);
+    if($read_pag == 'pedidos'){
+        unset($_SESSION['carrinho']);
+    }
     
     $delete->ExeDelete($tabela, 'WHERE '.$chp.' = ' . $id);
     $_SESSION['msg'] = '<div class="alert alert-success alert-dismissible" role="alert">

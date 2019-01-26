@@ -19,7 +19,7 @@
             </thead>
             <tbody>
                 <?php 
-                $read = new Read(); $read->ExeRead('pedidos');
+                $read = new Read(); $read->ExeRead('pedidos', 'where id_usuario = '.$_SESSION['idUser']);
                 foreach($read->getResult() as $pedido):
                     extract($pedido);
                 ?>
@@ -31,7 +31,7 @@
                 <td><?php echo $created; ?></td>
                 <td>
                     <div class="btn-group" role="group" aria-label="Basic example">
-                        <a href="<?php echo Url::getBase().'controllers/delete.php?pag=feichos&tb=feichos&ch=id&value='.$id ?>" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
+                        <a href="<?php echo Url::getBase().'controllers/delete.php?pag=pedidos&tb=pedidos&ch=id&value='.$id ?>" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
                     </div>
                 </td>
                 </tr>

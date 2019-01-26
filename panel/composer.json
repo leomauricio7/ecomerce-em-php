@@ -1,5 +1,8 @@
 {
     "autoload": {
         "classmap" : ["controllers/class", "controllers/conn", "controllers/helpers"]
+    },
+    "require": {
+        "pagseguro/pagseguro-php-sdk": "^4.2"
     }
 }
