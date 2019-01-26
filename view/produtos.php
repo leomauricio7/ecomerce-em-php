@@ -61,7 +61,7 @@
                 <?php endforeach ?>           
               </ul>
             </div>   
-            <div class="col-lg-9 col-md-6">            
+            <div class="col-lg-9 col-md-6" id="conteudo">            
             <?php 
             $read = new Read();
                   
@@ -76,6 +76,7 @@
               extract($produtos);
             ?>
               <div class="col-lg-4 col-md-6">
+
                 <div class="member">
                   <div class="pic">
                   <img class="image" src="<?php echo Url::getBase().'panel/uploud/produto/'.$id.'/'.Validation::getImagesProdutos($id) ?>" alt="">
@@ -95,17 +96,11 @@
                     </div>                                 
                   </div>
                 </div>
+                
               </div>
             <?php endforeach ?>                             
-            </div>   
-            <div style="text-align: center;">
-                <ul class="pagination">
-                  <li><a href="#">1</a></li>
-                  <li><a href="#">2</a></li>
-                  <li><a href="#">3</a></li>
-                  <li><a href="#">4</a></li>
-                  <li><a href="#">5</a></li>
-                </ul>              
-              </div>                                              
+            </div> 
+            <div id="pagi" style="text-align: center;"></div>
+                                           
         </div>
     </div>

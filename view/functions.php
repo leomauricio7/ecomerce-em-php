@@ -1,8 +1,8 @@
 <?php 
 if($_POST){
     //verifica se o usuario esta logado
-    if(!$_SESSION['logado']){
-        echo '<script>window.location.href="./login"</script>';
+    if(!isset($_SESSION['logado'])){
+        echo "<script>window.location.assign('login')</script>";
     }else{
         //se ja tiver logado
         $idUser = intval($_SESSION['idUser']);

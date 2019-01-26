@@ -1,22 +1,35 @@
-    <div id="myCarousel" class="carousel slide" data-ride="carousel">
-    <!-- Indicators -->
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+
+    <!-- controlers do slide -->
     <ol class="carousel-indicators">
-      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-      <li data-target="#myCarousel" data-slide-to="1"></li>
+        <?php 
+        $read = new Read();
+        $read->ExeRead('banners');
+        $i = 0;
+            foreach( $read->getResult() as $banner){
+                extract($banner);
+        ?>
+            <li data-target="#myCarousel" data-slide-to="<?php echo $i ?>" class="<?php echo $i == 0 ? 'active': '' ?>"></li>
+        <?php $i++; } ?>
     </ol>
 
-    <!-- Wrapper for slides -->
+    <!-- imagens do caarousel -->
     <div class="carousel-inner">
-      <div class="item active">
-        <img src="img/intro-carousel/1.jpg" alt="Los Angeles" style="width:100%;">
-      </div>
-
-      <div class="item">
-        <img src="img/intro-carousel/2.jpg" alt="Chicago" style="width:100%;">
-      </div>
+        <?php 
+            $read = new Read();
+            $read->ExeRead('banners');
+            $j = 0;
+                foreach( $read->getResult() as $banner){
+                    extract($banner);
+        ?>
+            <div class="item <?php echo $j == 0 ? 'active': '' ?>">
+                <img src="<?php echo Url::getBase().'panel/uploud/banner/'.$id.'/'.$image ?>" alt="Los Angeles" style="width:100%;">
+            </div>
+        <?php $j++; } ?>
       
     </div>
   </div>
+
   <section id="team" class="wow fadeInUp">
       <div class="container">
         <div class="section-header">

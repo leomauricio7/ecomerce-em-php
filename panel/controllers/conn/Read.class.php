@@ -21,7 +21,7 @@ class Read extends Conn{
         if(empty($Termos)):
             $Termos = '';
         endif;
-        $this->Select = 'SELECT p.id as id_produto, p.nome as nomeProduto, p.id_categoria, p.slug, p.valor, c.nome as categoria, p.descricao, p.peso, p.altura, p.largura, p.comprimento, p.quantidade FROM produtos p inner join categorias c on c.id = p.id_categoria '.$Termos;
+        $this->Select = 'SELECT p.id as id_produto, cs.cor, p.nome as nomeProduto, p.id_categoria, p.slug, p.valor, c.nome as categoria, p.descricao, p.peso, p.altura, p.largura, p.comprimento, p.quantidade FROM produtos p inner join categorias c on c.id = p.id_categoria inner join cores as cs on p.id_cor = cs.id '.$Termos;
         $this->ExecuteSQL();
     } 
 

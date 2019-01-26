@@ -143,7 +143,6 @@
         $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
         
         if($dados['id_categoria'] != 17){
-            unset($dados['id_cor']);
             unset($dados['id_tamanho']);
             unset($dados['id_feiche']);
         }
@@ -175,6 +174,7 @@
                 'largura' => $dados['largura'],
                 'comprimento' => $dados['comprimento'],
                 'valor' => $dados['valor'],
+                'id_cor' => $dados['id_cor'],
                 'quantidade' => $dados['quantidade'],
                 'id_categoria' => $dados['id_categoria']
             ];
@@ -295,7 +295,7 @@
                         foreach($read_cores->getResult() as $cor){
                             extract($cor);
                         ?>
-                        <option value="<?php echo $id ?>"><?php echo $nome ?></option>
+                        <option value="<?php echo $id ?>" <?php echo $id_cor == $id ? 'selected' : ''?>><?php echo $nome ?></option>
                         <?php } ?>
                     </select>
                 </div>
@@ -309,7 +309,7 @@
                         foreach($read_tamanho->getResult() as $tamanho){
                             extract($tamanho);
                         ?>
-                        <option value="<?php echo $id ?>"><?php echo $tamanho ?></option>
+                        <option value="<?php echo $id ?>" <?php echo $id_tamanho == $id ? 'selected' : ''?>><?php echo $tamanho ?></option>
                         <?php } ?>
                     </select>
                 </div>
@@ -323,7 +323,7 @@
                         foreach($feiches->getResult() as $feiche){
                             extract($feiche);
                         ?>
-                        <option value="<?php echo $id ?>"><?php echo $nome ?></option>
+                        <option value="<?php echo $id ?>" <?php echo $id_feiche == $id ? 'selected' : ''?>><?php echo $nome ?></option>
                         <?php } ?>
                     </select>
                 </div>

@@ -76,15 +76,9 @@
                     $idCategory = $id_categoria;
                   ?>
                 <h3 class="product-title"><?php echo $nomeProduto ?></h3>
-                <div class="rating">
-                  <div class="stars">
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star"></span>
-                    <span class="fa fa-star"></span>
-                  </div>
-                </div>
+                <h5 class="sizes">Cor:
+                  <span class="size" data-toggle="tooltip" title="small"><i class="fas fa-circle" style="color: <?php echo $cor ?>"></i></span>
+                </h5>
 
                 <p class="product-description"><?php echo $descricao ?></p>
 

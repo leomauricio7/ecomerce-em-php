@@ -47,6 +47,7 @@
           </thead>
           <tbody>
             <?php 
+            if(isset($_SESSION['carrinho'])){
             $subTotal = 0;
             $read = new read();
             $readProdutos = new read();
@@ -93,13 +94,15 @@
               <td><button type="button" class="btn disabled">Atualizar carrinho</button></td>
             </tr>
           </tbody>
+          <?php } ?>
         </table>      
       </div>
   </div>  
   <div class="row">
     <div class="col-lg-4 col-md-6">
         
-    </div>    
+    </div>  
+    <?php if(isset($_SESSION['carrinho'])) {?>  
     <div class="col-lg-4 col-md-6" style="text-align: center;">
         <table class="table table-bordered text-center" width="100%">
           <thead>
@@ -128,6 +131,7 @@
         </button> 
         </a>              
     </div> 
+    <?php } ?>
     <div class="col-lg-4 col-md-6">
         
     </div>          

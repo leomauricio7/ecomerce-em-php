@@ -26,7 +26,7 @@
             <?php }else{?>
               <a href="<?php echo Url::getBase() ?>login" class="twitter"><i class="fa fa-arrow-right"></i> Entrar</a>
             <?php } ?>
-              <a href="<?php echo Url::getBase() ?>carrinho" class="facebook"><span class="badge badge-info"><?php echo Validation::getTotalProdutosCarrinho($_SESSION['carrinho']) ?></span><i class="fa fa-shopping-cart"></i> Carrinho</a>
+              <a href="<?php echo Url::getBase() ?>carrinho" class="facebook"><span class="badge badge-info"><?php if(isset($_SESSION['carrinho'])){  echo Validation::getTotalProdutosCarrinho($_SESSION['carrinho']); } ?></span><i class="fa fa-shopping-cart"></i> Carrinho</a>
             </div>
           </div>                               
         </div>        
