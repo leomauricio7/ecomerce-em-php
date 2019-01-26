@@ -93,7 +93,7 @@
                 </div>
 
               </div>
-              
+
             </div>
 
             <div class="row" style="padding-top: 20px;">
@@ -131,7 +131,7 @@
           <?php
             $read_pr = new Read();
             $idCategory = Validation::getIdCategoriaProduto($idProduto);
-            $read_pr->ExeRead('produtos', 'WHERE id <> '.$idProduto.' ORDER BY id DESC LIMIT 4');
+            $read_pr->ExeRead('produtos', 'WHERE id <> '.$idProduto.' AND id_categoria = '.$idCategory.' ORDER BY id DESC LIMIT 4');
             foreach($read_pr->getResult() as $pr){
               extract($pr);
           ?>
