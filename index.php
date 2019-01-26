@@ -265,5 +265,53 @@ require_once('./panel/vendor/autoload.php');
         
       });
     </script>
+    <script>
+    $(function(){
+      $('#add-produto').click(function(e){
+          e.preventDefault();
+          var data = $(this).attr('alt');
+          var dados = data.split(';');
+          var id_produto_pedido = dados[0]; var qtd = dados[1];
+          $.ajax({
+              url: "view/add.php",
+              type: "POST",
+              data: "id_produto_pedido="+id_produto_pedido+"&qtd="+qtd,
+              dataType: "json"
+
+          }).done(function(resposta) {
+              console.log(resposta);
+
+          }).fail(function(jqXHR, textStatus ) {
+              console.log("Request failed: " + textStatus);
+
+          }).always(function() {
+              console.log("completou");
+              location.reload();
+          });
+      });
+      $('#del-produto').click(function(e){
+        e.preventDefault();
+          var data = $(this).attr('alt');
+          var dados = data.split(';');
+          var id_produto_pedido = dados[0]; var qtd = dados[1];
+          $.ajax({
+              url: "view/del.php",
+              type: "POST",
+              data: "id_produto_pedido="+id_produto_pedido+"&qtd="+qtd,
+              dataType: "json"
+
+          }).done(function(resposta) {
+              console.log(resposta);
+
+          }).fail(function(jqXHR, textStatus ) {
+              console.log("Request failed: " + textStatus);
+
+          }).always(function() {
+              console.log("completou");
+              location.reload();
+          });
+      });
+    });
+    </script>
 </body>
 </html>

@@ -66,7 +66,9 @@
               <td>R$ <?php echo number_format($valor, 2, ",", "") ?></td>
               <td>
                 <form>
-                  <input type="number" name="quantity" min="0" max="1000" value="<?php echo $quantidade ?>">
+                  <a href="" id="del-produto" alt="<?php echo $id_produto_pedido.';'.$quantidade ?>"><i class="fa fa-minus"></i></a>
+                  <span class="badge"><?php echo $quantidade ?></span>
+                  <a href="" id="add-produto" alt="<?php echo $id_produto_pedido.';'.$quantidade ?>"><i class="fa fa-plus"></i></a>
                 </form>                
               </td>
               <td>R$ <?php echo number_format($total, 2, ",", "") ?></td>
