@@ -56,7 +56,7 @@
                 <h4><?php echo $nome ?></h4>
                 <span>R$ <?php echo number_format($valor, 2, ",", ""); ?></span>
                 <div class="carrinho">
-                  <?php require_once('functions.php') ?>
+                  <?php require_once('carrinho/init.php') ?>
                   <form method="post" id="form-<?php echo $id ?>">
                     <input type="hidden" name="idProduto" value="<?php echo $id ?>">
                     <a alt="<?php echo $id ?>" class="plus"><i class="fa fa-cart-plus"></i></a>

@@ -132,7 +132,7 @@
                 <a id="frete" style="cursor: pointer;"><i class="fa fa-car"></i> Calcular Frete</a><br>
                 <span id="valor_frete"></span>
                 <form method="POST" id="form-frete" action="" style="display:none;">
-                    <input type="hidden" id="subtotal" name="valor" value="<?php echo number_format($subTotal) ?>">
+                    <input type="hidden" id="subtotal" name="valor" value="<?php echo number_format($subTotal, 2, ",", "") ?>">
                     <input type="hidden" name="pedido_id" value="<?php echo $_SESSION['carrinho'] ?>">
                     <div class="form-group">
                         <input type="radio" name="tipo_frete" value="41106" required>PAC
@@ -154,14 +154,15 @@
             </tr>
             <tr>
               <td><strong>Total</strong></td>
+              <input type="hidden" id="id_pedido" value="<?php echo $_SESSION['carrinho']; ?>">
               <td><span id="total">-</span></td>
             </tr>
           </tbody>  
         </table> 
-        <a href="">  
-        <button class="btn btn-default-search-top" type="submit" style="font-weight: bold;">
-          FINALIZAR PEDIDO
-        </button> 
+        <a id="finaliza-pedido">  
+          <button class="btn btn-default-search-top" type="submit" style="font-weight: bold;">
+            FINALIZAR PEDIDO
+          </button> 
         </a>              
     </div> 
     <?php } ?>

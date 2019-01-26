@@ -1,7 +1,7 @@
 <?php 
 
-require_once('../panel/controllers/init.inc');
-require_once('../panel/vendor/autoload.php');
+require_once('../../panel/controllers/init.inc');
+require_once('../../panel/vendor/autoload.php');
 
 $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 

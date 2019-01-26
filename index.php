@@ -113,8 +113,9 @@ require_once('./panel/vendor/autoload.php');
   <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
   <!--api cep-->
   <script type="text/javascript" src="<?php echo Url::getBase(); ?>panel/public/js/busca_cep.js"></script>
-  <!--paginate -->
-  <!--<script src="<?php echo url::getBase() ?>js/paginate.js"></script>-->
+  <!--pagseguro -->
+  <script type="text/javascript" src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.lightbox.js"></script>
+  <!-- scripts do ecomerce -->
   <script>
   $(function(){
     $('.plus').click(function(){
@@ -222,7 +223,7 @@ require_once('./panel/vendor/autoload.php');
             var dados = data.split(';');
             var id_produto_pedido = dados[0]; var qtd = dados[1];
             $.ajax({
-                url: "view/add.php",
+                url: "view/carrinho/add.php",
                 type: "POST",
                 data: "id_produto_pedido="+id_produto_pedido+"&qtd="+qtd,
                 dataType: "json"
@@ -246,7 +247,7 @@ require_once('./panel/vendor/autoload.php');
             var id_produto_pedido = dados[0]; var qtd = dados[1];
             if(qtd > 0){
               $.ajax({
-                  url: "view/del.php",
+                  url: "view/carrinho/del.php",
                   type: "POST",
                   data: "id_produto_pedido="+id_produto_pedido+"&qtd="+qtd,
                   dataType: "json"
@@ -281,7 +282,7 @@ require_once('./panel/vendor/autoload.php');
             console.log(data)
             $.ajax({
               type: "POST",
-              url: "view/frete.php",
+              url: "view/carrinho/frete.php",
               data: data,
               dataType: "json"
             }).done(function(resposta) {
@@ -312,7 +313,7 @@ require_once('./panel/vendor/autoload.php');
             console.log(data);
             $.ajax({
               type: "POST",
-              url: "view/cupon.php",
+              url: "view/carrinho/cupon.php",
               data: data,
               dataType: "json"
             }).done(function(resposta) {
@@ -326,6 +327,53 @@ require_once('./panel/vendor/autoload.php');
                 location.reload();
             });
         });
+    </script>
+    <script>
+      $(function(){
+          function setNumber(string) {
+            var numsStr = string.replace(/[^0-9]/g,'');
+            return parseInt(numsStr);
+          }
+        $('#finaliza-pedido').click(function(e){
+          e.preventDefault();
+            $('#loading').show();
+            var totalPedido = $('#total').text();
+            var totalDias = $('#dias').text();
+            
+            var idPedido = $('#id_pedido').val();
+            totalPedido = totalPedido.replace('R','');
+            totalPedido = totalPedido.replace('$','');
+            totalPedido = totalPedido.replace(',','.');
+            totalPedido = totalPedido.trim();
+              $.ajax({
+                type: "POST",
+                url: "view/carrinho/close.php",
+                data: 'id_pedido='+idPedido+'&total_pedido='+totalPedido+'&entrega='+setNumber(totalDias),
+              }).done(function(resposta) {
+                  console.log(resposta);
+                  $('#loading').hide('fast');
+
+              }).fail(function(jqXHR, textStatus ) {
+                  console.log("Request failed: " + textStatus);
+              }).always(function() {
+                $('#loading').hide();
+                  window.location.href="./finaliza-compra";
+              });
+
+        });
+      });
+    </script>
+    <script>
+      $(function(){
+        $('#finaliza-compra').click(function(e){
+          e.preventDefault();
+          var valor = $('#totalPedido').val();
+          $.post('view/carrinho/pagseguro.php','',function(data){
+              $('#code').val(data);
+              $('#comprar').submit();
+          });
+        });
+      });
     </script>
 </body>
 </html>

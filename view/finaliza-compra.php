@@ -33,93 +33,65 @@
   <div class="container">
     <div class="row">
       <div class="section-header">
-        <h2>FINALIZAR COMPRAS</h2>
-        <p>Preencha os campos abaixo para finalizar sua compra.</p>  
-        <div class="col-lg-6 col-md-6">
-
-          <div class="form-group">
-            <label for="usr">Nome Completo:</label>
-            <input type="text" class="form-control" id="usr">
-          </div>
-          <div class="form-group">
-            <label for="pwd">CEP:</label>
-            <div class="input-group">
-              <input type="text" class="form-control" placeholder="Informe o CEP">
-              <div class="input-group-btn">
-                <button class="btn btn-default" type="submit">
-                  <i class="fa fa-search"></i>
-                </button>
-              </div>
-            </div>
-          </div>   
-          <div class="form-group">
-            <label for="pwd">Endereço:</label>
-            <input type="text" class="form-control" id="pwd">
-          </div>  
-          <div class="form-group">
-            <label for="pwd">Bairro:</label>
-            <input type="text" class="form-control" id="pwd">
-          </div>  
-          <div class="form-group">
-            <label for="pwd">Complemento:</label>
-            <input type="text" class="form-control" id="pwd">
-          </div>  
-          <div class="form-group">
-            <label for="pwd">Cidade:</label>
-            <input type="text" class="form-control" id="pwd">
-          </div>   
-          <div class="form-group">
-            <label for="pwd">Estado:</label>
-            <input type="text" class="form-control" id="pwd">
-          </div>    
-          <div class="form-group">
-            <label for="pwd">Telefone:</label>
-            <input type="text" class="form-control" id="pwd">
-          </div>   
-          <div class="form-group">
-            <label for="pwd">E-mail:</label>
-            <input type="text" class="form-control" id="pwd">
-          </div>                                                                               
-          <div class="form-group">
-            <label for="comment">Informações complementares sobre o pedido:</label>
-            <textarea class="form-control" rows="5" id="comment"></textarea>
-          </div>
-        </div>     
-        <div class="col-lg-6 col-md-6">
+        <h2>FINALIZAR COMPRAS</h2> 
+        <div class="col-lg-6 col-md-6 col-md-offset-3">
           <table class="table table-bordered text-center" width="100%" style="text-align: center;">
             <thead style="background-color: #e8e8e8">
               <tr>
                 <th scope="col" colspan="2">SEU PEDIDO</th>
               </tr>
             </thead>
+
             <tbody>
+            <?php 
+                if(isset($_SESSION['carrinho'])){
+                $subTotalPedido = 0;
+                $read = new read();
+                $read->ExeRead('pedidos', 'where id= :id AND id_status = 5', 'id='.$_SESSION['carrinho']);
+                foreach($read->getResult() as $pedido){
+                  extract($pedido);
+                  $_SESSION['valor'] = $valor;
+            ?>
               <tr>
                 <td><strong>Produto</strong></td>
                 <td>
-                  Descrição do Produto x <strong>1</strong><!-- AQUI PEGA O VALOR DA SESSÃO ANTERIOR (QUANTIDADE) -->
-                  <br/>                
+                  <?php
+                    $subtotal = 0;
+                      $readProdutos = new Read(); 
+                      $readProdutos->getProdutoPedido('where p.id_pedido = '.$id);
+                      foreach($readProdutos->getResult() as $produtos){
+                          extract($produtos);
+                    ?>
+                    <img class="img-compra" src="<?php echo Url::getBase().'panel/uploud/produto/'.$id_produto.'/'.Validation::getImagesProdutos($id_produto) ?>"/>
+                    <?php echo $nome.' x <strong>'.$quantidade.'</strong> <span class="badge">R$ '.number_format($total, 2, ",", "").'</span>' ?>
+                    <br/>
+                    <?php 
+                      $subTotalPedido+=$total;
+                      } 
+                      ?>              
                 </td>
               </tr>
               <tr>
                 <td><strong>Subtotal</strong></td>
-                <td>R$ 180,00</td>
-              </tr>              
+                <td>R$ <?php  echo number_format($subTotalPedido, 2, ",", "") ?></td>
+              </tr>   
+              <tr>
+                <td><strong>Desconto</strong></td>
+                <td><?php echo $id_cupon != null ? Validation::getcupon($id_cupon) : '-' ?></td>
+              </tr>            
               <tr>
                 <td><strong>Entrega</strong></td>
-                <td>
-                  <div class="radio">
-                    <label><input type="radio" name="optradio1" checked>PAC: R$18,80 - Entrega em 5 dias úteis</label>
-                  </div>
-                  <div class="radio">
-                    <label><input type="radio" name="optradio2">SEDEX: R$20,21 - Entrega em 1 dia útil</label>
-                  </div>                  
+                <td>    
+                <?php echo $entrega ?> dias uteis.            
                 </td>
               </tr>
               <tr style="background-color: #e8e8e8">
                 <td><strong>Total</strong></td>
-                <td>R$ 180,00</td>
+                <td>R$ <?php echo number_format($valor, 2, ",", "") ?></td>
               </tr>
             </tbody>  
+            <?php } 
+            }?>
           </table>    
           <table class="table table-bordered text-center" width="100%" style="background-color: #e8e8e8;text-align: justify;">
             <tr>
@@ -128,7 +100,7 @@
                   <label><input type="radio" name="optradio3" checked>Pagamento com o PagSeguro</label>
                 </div>                 
               </td>
-              <td><img src="http://brutus.marcelolimawebdesign.com.br/wp-content/plugins/woocommerce-pagseguro/assets/images/pagseguro.png"></td>
+              <td><img src="https://www.otpanel.com/wp-content/uploads/2016/06/logo-pagseguro.png" width="200"></td>
             </tr>
             <tr>&nbsp;</tr>
             <tr>
@@ -141,12 +113,13 @@
                  <label class="checkbox-inline"><input type="checkbox" value="">Li e concordo com o(s) termos e condições do site *</label>
               </td>
             </tr>  
-          </table> 
-            <a href="./index?p=finalizar-compras">  
-            <button class="btn btn-default-search-top btn-block" type="submit" style="font-weight: bold;">
-              FINALIZAR PEDIDO
-            </button> 
-            </a>                             
+          </table>  
+            <form id="comprar" action="https://pagseguro.uol.com.br/checkout/v2/payment.html" method="post" onsubmit="PagSeguroLightbox(this); return false;">
+              <input type="hidden" name="code" id="code" value="" />
+              <button id="finaliza-compra" class="btn btn-default-search-top btn-block" type="submit" style="font-weight: bold;">
+                FINALIZAR COMPRA
+              </button>   
+            </form>                
         </div>                        
       </div>
   </div>  
