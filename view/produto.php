@@ -1,4 +1,4 @@
-    <section id="call-to-action" class="wow fadeInUp">
+<section id="call-to-action" class="wow fadeInUp">
       <div class="container">
         <div class="row">
           <div class="col-lg-9 text-center text-lg-left">
@@ -93,7 +93,7 @@
                 </div>
 
               </div>
-
+              
             </div>
 
             <div class="row" style="padding-top: 20px;">
@@ -136,6 +136,7 @@
               extract($pr);
           ?>
           <div class="col-lg-3 col-md-6">
+
             <div class="member">
               <div class="pic">
                 <img class="image" src="<?php echo Url::getBase().'panel/uploud/produto/'.$id.'/'.Validation::getImagesProdutos($id) ?>" alt="">
