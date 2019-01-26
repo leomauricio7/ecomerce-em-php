@@ -39,7 +39,6 @@
                 <?php
                     $read = new Read();
                     $idProduto = Validation::getIdProduto(Url::getURL(1));
-                    $idCategory = '';
                     $read->ExeRead('images_produto', 'WHERE id_produto = '.$idProduto.'', 'ORDER BY id DESC');
                     $i = 0;
                     foreach($read->getResult() as $images):
@@ -67,13 +66,10 @@
               <!-- detalhes do produto -->
               <div class="details col-md-6">
               <?php
-                  $read = new Read();
-                  $idProd = Validation::getIdProduto(Url::getURL(1));
-                  $read->getProduto('WHERE p.id = '.$idProd.'', 'ORDER BY id DESC');
-
-                  foreach($read->getResult() as $produto):
+                  $read_prod = new Read();
+                  $read_prod->getProduto('WHERE p.id = '.$idProduto);
+                  foreach($read_prod->getResult() as $produto){
                     extract($produto);
-                    $idCategory = $id_categoria;
                   ?>
                 <h3 class="product-title"><?php echo $nomeProduto ?></h3>
                 <h5 class="sizes">Cor:
@@ -86,16 +82,18 @@
                 <h5 class="sizes">Categoria:
                   <span class="size" data-toggle="tooltip" title="small"><?php echo $categoria ?></span>
                 </h5>
+
                 <div class="action">
                   <?php require_once('functions.php') ?>
-                    <form method="post" id="form-<?php echo $idProd ?>">
-                      <input type="hidden" name="idProduto" value="<?php echo  $idProd ?>">
-                      <a alt="<?php echo $idProd ?>" class="plus"><button class="add-to-cart btn btn-default" type="button"><i class="fa fa-cart-plus"></i> ADICIONAR AO CARRINHO</button></a>
+                    <form method="post" id="form-<?php echo $idProduto ?>">
+                      <input type="hidden" name="page" value="">
+                      <input type="hidden" name="idProduto" value="<?php echo  $idProduto ?>">
+                      <a alt="<?php echo $idProduto ?>" class="plus"><button class="add-to-cart btn btn-default" type="button"><i class="fa fa-cart-plus"></i> ADICIONAR AO CARRINHO</button></a>
                     </form>
                 </div>
 
               </div>
-
+              
             </div>
 
             <div class="row" style="padding-top: 20px;">
@@ -118,7 +116,7 @@
                 </div>
               </div>              
             </div>
-          <?php endforeach ?>
+            <?php } ?>
 
           </div>
         </div>
@@ -131,10 +129,11 @@
         </div>
         <div class="row">
           <?php
-            $read = new Read();
-            $read->ExeRead('produtos', 'WHERE id <> '.$idProduto.' AND id_categoria = '.$idCategory.'', 'ORDER BY id DESC LIMIT 4');
-            foreach($read->getResult() as $produtosRelacionasdos):
-              extract($produtosRelacionasdos);
+            $read_pr = new Read();
+            $idCategory = Validation::getIdCategoriaProduto($idProduto);
+            $read_pr->ExeRead('produtos', 'WHERE id <> '.$idProduto.' ORDER BY id DESC LIMIT 4');
+            foreach($read_pr->getResult() as $pr){
+              extract($pr);
           ?>
           <div class="col-lg-3 col-md-6">
             <div class="member">
@@ -159,7 +158,7 @@
               </div>
             </div>
           </div>
-        <?php endforeach ?>
+            <?php } ?>
         </div>              
 
       </div>

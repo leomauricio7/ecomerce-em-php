@@ -344,4 +344,15 @@ class Validation extends Conn {
         return $total;
     }
 
+    public static function getIdCategoriaProduto($id){
+        $idcategoria = '';
+        $read = new read();
+        $read->ExeRead('produtos',"where id = '$id'");
+        foreach($read->getresult() as $prod):
+            extract($prod);
+            $idcategoria = $id_categoria;
+        endforeach;
+        return $idcategoria;
+    }
+
 }
