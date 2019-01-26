@@ -1,0 +1,65 @@
+.spinner {
+    border: 8px solid rgba(0, 0, 0, 0.1);
+    border-left-color: #22a6b3;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.float-left {
+    float: left!important;
+    padding: 8px 0;
+  }
+  .float-right {
+    float: right!important;
+    padding: 8px 0;
+  }
+  .btn-default-search-top {
+  color: #fff;
+  background-color: #186548;
+  /* border-color: #ccc; */
+  }    
+  .image {
+    opacity: 1;
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: .5s ease;
+    backface-visibility: hidden;
+  }
+
+  .middle {
+    transition: .5s ease;
+    opacity: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    text-align: center;
+  }
+
+  .pic:hover .image {
+    opacity: 0.3;
+    cursor: pointer;
+  }
+
+  .pic:hover .middle {
+    opacity: 1;
+    cursor: pointer;
+  }
+
+  .text {
+    background-color: #196448;
+    color: white;
+    font-size: 12px;
+    padding: 12px 24px;
+  }    
+  .text a{
+    color: #fff;
+  }

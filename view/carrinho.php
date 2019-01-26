@@ -18,6 +18,8 @@
 <!--==========================
   Our Team Section
 ============================-->    
+<!-- Spiner -->
+<div class="loading" id="loading" style="display:none">Loading&#8230;</div>
 
 <!--==========================
   Contact Section
@@ -60,7 +62,7 @@
             ?>
             <tr>
               <th scope="row" style="text-align: center;">
-                <a href="<?php echo Url::getBase().'panel/controllers/delete.php?pag=../carrinho&tb=produtos_pedido&ch=id&value='.$id_produto_pedido?>"><i class="fa fa-trash-o"></i></a>
+                <a href="<?php echo Url::getBase().'panel/controllers/delete.php?pag=../carrinho&tb=produtos_pedido&ch=id&value='.$id_produto_pedido?>"><i class="fa fa-trash"></i></a>
               </th>
               <td><img src="<?php echo Url::getBase().'panel/uploud/produto/'.$id_produto.'/'.Validation::getImagesProdutos($id_produto) ?>" width="200" /></td>
               <td>R$ <?php echo number_format($valor, 2, ",", "") ?></td>
@@ -81,7 +83,7 @@
           ?>
             <tr>
               <th scope="row"></th>
-              <td colspan="3">
+              <td colspan="2">
                 <form>
                   <div class="input-group">
                     <input type="text" class="form-control" placeholder="CUPOM DE DESCONTO">
@@ -93,7 +95,8 @@
                   </div>
                 </form>              
               </td>
-              <td><button type="button" class="btn disabled">Atualizar carrinho</button></td>
+              <td><img src="http://www.fundecto.com.br/images/desconto.png" width="20"/> <strong>DESCONTO</strong></td>
+              <td><span>-</span></td>
             </tr>
           </tbody>
           <?php } ?>
@@ -118,18 +121,40 @@
               <td>R$ <?php echo number_format($subTotal, 2, ",", "") ?></td>
             </tr>
             <tr>
+              <td><img src="https://ap.imagensbrasil.org/images/caminhao_entrega.png" width="50"></td>
+              <td>
+                <a id="frete" style="cursor: pointer;"><i class="fa fa-car"></i> Calcular Frete</a><br>
+                <span id="valor_frete"></span>
+                <form method="POST" id="form-frete" action="" style="display:none;">
+                    <input type="hidden" id="subtotal" name="valor" value="<?php echo $subTotal ?>">
+                    <input type="hidden" name="pedido_id" value="<?php echo $_SESSION['carrinho'] ?>">
+                    <div class="form-group">
+                        <input type="radio" name="tipo_frete" value="41106" required>PAC
+                        <input type="radio" name="tipo_frete" value="40010" required>SEDEX
+                    </div>
+                    <div class="input-group input-group-sm" style="width: 100%">
+                      <input type="text" name="cep" placeholder="informe um cep" class="form-control" maxlength="8" minlength="8" required autofocus>
+                      <span class="input-group-btn">
+                        <button class="btn btn-default-search-top btn-sm" type="submit" id="calculaFrete">calcular</button>
+                      </span>
+                  </div>
+                </form>
+              </td>
+
+            </tr>
+            <tr>
               <td><strong>Entrega</strong></td>
-              <td><a href="#"><i class="fa fa-car"></i> Calcular Entrega</a></td>
+              <td><span id="dias">-</span></td>
             </tr>
             <tr>
               <td><strong>Total</strong></td>
-              <td>R$ 180,00</td>
+              <td><span id="total">-</span></td>
             </tr>
           </tbody>  
         </table> 
-        <a href="./index?p=finalizar-compras">  
+        <a href="">  
         <button class="btn btn-default-search-top" type="submit" style="font-weight: bold;">
-          FINALIZAR A COMPRA
+          FINALIZAR PEDIDO
         </button> 
         </a>              
     </div> 

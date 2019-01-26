@@ -35,60 +35,8 @@ require_once('./panel/vendor/autoload.php');
   <link rel="stylesheet" href="<?php echo Url::getBase(); ?>lib/bootstrap/bootstrap.min.css">
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.1/jquery.min.js"></script> 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
-  <style type="text/css">
-    .float-left {
-      float: left!important;
-      padding: 8px 0;
-    }
-    .float-right {
-      float: right!important;
-      padding: 8px 0;
-    }
-    .btn-default-search-top {
-    color: #fff;
-    background-color: #186548;
-    /* border-color: #ccc; */
-    }    
-    .image {
-      opacity: 1;
-      display: block;
-      width: 100%;
-      height: auto;
-      transition: .5s ease;
-      backface-visibility: hidden;
-    }
-
-    .middle {
-      transition: .5s ease;
-      opacity: 0;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      -ms-transform: translate(-50%, -50%);
-      text-align: center;
-    }
-
-    .pic:hover .image {
-      opacity: 0.3;
-      cursor: pointer;
-    }
-
-    .pic:hover .middle {
-      opacity: 1;
-      cursor: pointer;
-    }
-
-    .text {
-      background-color: #196448;
-      color: white;
-      font-size: 12px;
-      padding: 12px 24px;
-    }    
-    .text a{
-      color: #fff;
-    }
-  </style>
+  <link rel="stylesheet" href="<?php echo Url::getBase() ?>css/animate.css">
+  <link rel="stylesheet" href="<?php echo Url::getBase() ?>css/loading.css">
 </head>
 
 <body id="body">
@@ -269,6 +217,7 @@ require_once('./panel/vendor/autoload.php');
     $(function(){
       $('#add-produto').click(function(e){
           e.preventDefault();
+          $('#loading').show();
           var data = $(this).attr('alt');
           var dados = data.split(';');
           var id_produto_pedido = dados[0]; var qtd = dados[1];
@@ -285,12 +234,13 @@ require_once('./panel/vendor/autoload.php');
               console.log("Request failed: " + textStatus);
 
           }).always(function() {
-              console.log("completou");
+              $('#loading').hide();
               location.reload();
           });
       });
       $('#del-produto').click(function(e){
         e.preventDefault();
+        $('#loading').show();
           var data = $(this).attr('alt');
           var dados = data.split(';');
           var id_produto_pedido = dados[0]; var qtd = dados[1];
@@ -308,13 +258,50 @@ require_once('./panel/vendor/autoload.php');
                 console.log("Request failed: " + textStatus);
 
             }).always(function() {
-                console.log("completou");
+              $('#loading').hide();
                 location.reload();
             });
+          }else{
+            $('#loading').hide();
           }
 
       });
     });
+    </script>
+    <script>
+        $('#frete').click(function(){
+          $('#form-frete').show('slow');
+          $('#frete').hide();
+        });
+        $('#calculaFrete').click( function(e){
+            e.preventDefault();
+            $('#loading').show();
+            var data = $('#form-frete').serialize();
+            var subTotal = $('#subtotal').val();
+            $.ajax({
+              type: "POST",
+              url: "view/frete.php",
+              data: data,
+              dataType: "json"
+            }).done(function(resposta) {
+                console.log('success',resposta);
+                var frete = resposta.Valor.replace(',', '.');
+                var total = parseFloat(frete)+parseFloat(subTotal);
+                var totalbr = total.toLocaleString("pt-BR", { style: "currency" , currency:"BRL"});
+                $('#form-frete').hide('fast');
+                $('#dias').html(resposta.PrazoEntrega + ' dias uteis.');
+                $('#valor_frete').html('R$ ' + resposta.Valor);
+                $('#total').html(totalbr);
+                $('#frete').show('fast');
+                $('#loading').hide('fast');
+
+            }).fail(function(jqXHR, textStatus ) {
+                console.log("Request failed: " + textStatus);
+            }).always(function() {
+              $('#loading').hide();
+                //location.reload();
+            });
+        });
     </script>
 </body>
 </html>
