@@ -367,8 +367,8 @@ require_once('./panel/vendor/autoload.php');
       $(function(){
         $('#finaliza-compra').click(function(e){
           e.preventDefault();
-          var valor = $('#totalPedido').val();
-          $.post('view/carrinho/pagseguro.php','',function(data){
+          var valorPedido = $('#totalPedido').val();
+          $.post('view/carrinho/pagseguro.php',{valor: valorPedido},function(data){
               $('#code').val(data);
               $('#comprar').submit();
           });

@@ -25,6 +25,14 @@ class Read extends Conn{
         $this->ExecuteSQL();
     } 
 
+    public function getPedido($Termos = null) {
+        if(empty($Termos)):
+            $Termos = '';
+        endif;
+        $this->Select = 'SELECT p.id, p.valor, p.entrega, s.status, u.nome as usuario, u.email, p.created as data FROM pedidos p inner join status_pedido s on p.id_status = s.id left join usuarios as u on p.id_usuario = u.id '.$Termos;
+        $this->ExecuteSQL();
+    }
+
     public function getProdutoPedido($Termos = null) {
         if(empty($Termos)):
             $Termos = '';

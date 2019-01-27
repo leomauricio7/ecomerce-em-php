@@ -87,7 +87,7 @@
               </tr>
               <tr style="background-color: #e8e8e8">
                 <td><strong>Total</strong></td>
-                <td>R$ <?php echo number_format($valor, 2, ",", "") ?></td>
+                <td>R$ <?php echo number_format($_SESSION['valor'], 2, ",", "") ?></td>
               </tr>
             </tbody>  
             <?php } 

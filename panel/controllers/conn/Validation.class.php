@@ -50,7 +50,16 @@ class Validation extends Conn {
                 $dados = $logar->fetch(PDO::FETCH_ASSOC);
                 if (password_verify($this->getSenha(), $dados['senha'])) {
                         $_SESSION['user'] = $dados['nome'];
+                        //dados para processar pagamentos
                         $_SESSION['email'] = $dados['email'];
+                        $_SESSION['rua'] = $dados['rua'];
+                        $_SESSION['uf'] = $dados['uf'];
+                        $_SESSION['cidade'] = $dados['cidade'];
+                        $_SESSION['bairro'] = $dados['bairro'];
+                        $_SESSION['cep'] = $dados['cep'];
+                        $_SESSION['numero'] = $dados['numero'];
+                        $_SESSION['telefone'] = $dados['telefone'];
+                        /****************************************/
                         $_SESSION['senha'] = $this->getSenha();
                         $_SESSION['idTipo'] = $dados['type'];
                         $_SESSION['idUser'] = $dados['id'];
@@ -389,6 +398,18 @@ class Validation extends Conn {
         }
 
         return $valorFinal;
+    }
+
+    public static function consultaPedido($reference){
+        $read = new Read();
+        $read->ExeReaad('pedidos', 'where id = :id', 'id='.$id);
+        return $read->rowCount() > 0 ? true : false;
+    }
+
+    public static function atualizaPedido($reference, $status){
+        $update = new Update();
+        $dados = ['id_status' => $status];
+        $update->ExeUpdate('pedidos', $dados, 'where id = :id', 'id='.$reference);
     }
 
 }
