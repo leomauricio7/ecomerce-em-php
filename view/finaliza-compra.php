@@ -47,7 +47,7 @@
                 if(isset($_SESSION['carrinho'])){
                 $subTotalPedido = 0;
                 $read = new read();
-                $read->ExeRead('pedidos', 'where id= :id AND id_status = 5', 'id='.$_SESSION['carrinho']);
+                $read->ExeRead('pedidos', 'where id= :id AND id_status = 1', 'id='.$_SESSION['carrinho']);
                 foreach($read->getResult() as $pedido){
                   extract($pedido);
                   $_SESSION['valor'] = $valor;

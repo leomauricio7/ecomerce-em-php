@@ -1,36 +1,43 @@
 <?php
 header("access-control-allow-origin: https://sandbox.pagseguro.uol.com.br");
 
-$notificationCode = preg_replace('/[^[:alnum:]-]/','',$_POST["notificationCode"]);
+if(isset($_GET['notificationType']) && $_GET['notificationType'] == 'transaction'){
+    $email = 'brutusbrasil@outlook.com';
+    $token = 'D6D57BC4E25E4D4687D24BFFEE7B2CC9';
+    //producao
+    //$url = 'https://ws.pagseguro.uol.com.br/v2/transactions/notifications/' . $_GET['notificationCode'] . '?email=' . $email . '&token=' . $token;
+    //sandbox
+    $url = 'https://ws.sandbox.pagseguro.uol.com.br/v2/transactions/notifications/' . $_GET['notificationCode'] . '?email=' . $email . '&token=' . $token;
+    $curl = curl_init($url);
+    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+    $transaction= curl_exec($curl);
+    if($transaction == 'Unauthorized'){
+        //Insira seu código avisando que o sistema está com problemas, sugiro enviar um e-mail avisando para alguém fazer a manutenção 
+        echo $transaction;
+       exit;//Mantenha essa linha
+    }
+    curl_close($curl);
+    $transaction = simplexml_load_string($transaction);
 
-$data['token'] ='brutusbrasil@outlook.com';
-$data['email'] = 'D6D57BC4E25E4D4687D24BFFEE7B2CC9';
+    $reference = $transaction->reference;
+    $status = $transaction->status;
+    
+    if($reference && $status){
 
-$data = http_build_query($data);
-
-$url = 'https://ws.sandbox.pagseguro.uol.com.br/v3/transactions/notifications/'.$notificationCode.'?'.$data;
-
-$curl = curl_init();
-curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-curl_setopt($curl, CURLOPT_URL, $url);
-$xml = curl_exec($curl);
-curl_close($curl);
-
-$xml = simplexml_load_string($xml);
-
-$reference = $xml->reference;
-$status = $xml->status;
-
-if($reference && $status){
-
- include_once '../../panel/controllers/init.inc';
- include_once '../../panel/vendor/autoload.php';
-
- $rs_pedido = Validation::consultarPedido($reference);
-
- if($rs_pedido){
-    Validation::atualizaPedido($reference,$status);
- }
+     include_once '../../panel/controllers/init.inc';
+     include_once '../../panel/vendor/autoload.php';
+    
+     $rs_pedido = Validation::consultaPedido($reference);
+    
+     if($rs_pedido == 1 ){
+        $result = Validation::atualizaPedido($reference,$status);
+        echo $result;
+     }else{
+        echo $rs_pedido;
+     }
+     
+    }
+    
 }
-
 ?>

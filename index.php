@@ -216,18 +216,18 @@ require_once('./panel/vendor/autoload.php');
     </script>
     <script>
       $(function(){
-        $('#add-produto').click(function(e){
+        $('.add-produto').click(function(e){
             e.preventDefault();
             $('#loading').show();
             var data = $(this).attr('alt');
             var dados = data.split(';');
             var id_produto_pedido = dados[0]; var qtd = dados[1];
+
             $.ajax({
                 url: "view/carrinho/add.php",
                 type: "POST",
                 data: "id_produto_pedido="+id_produto_pedido+"&qtd="+qtd,
                 dataType: "json"
-
             }).done(function(resposta) {
                 console.log(resposta);
 
@@ -239,7 +239,7 @@ require_once('./panel/vendor/autoload.php');
                 location.reload();
             });
         });
-        $('#del-produto').click(function(e){
+        $('.del-produto').click(function(e){
           e.preventDefault();
           $('#loading').show();
             var data = $(this).attr('alt');

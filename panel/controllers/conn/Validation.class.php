@@ -402,14 +402,19 @@ class Validation extends Conn {
 
     public static function consultaPedido($reference){
         $read = new Read();
-        $read->ExeReaad('pedidos', 'where id = :id', 'id='.$id);
-        return $read->rowCount() > 0 ? true : false;
+        $read->ExeRead('pedidos', 'where id = :id', 'id='.$reference);
+        return $read->getRowCount();
     }
 
     public static function atualizaPedido($reference, $status){
         $update = new Update();
         $dados = ['id_status' => $status];
         $update->ExeUpdate('pedidos', $dados, 'where id = :id', 'id='.$reference);
+        if($update->getRowCount() > 0){
+            return 'success: 200';
+        }else{
+            return 'erro: 404';
+        }
     }
 
 }

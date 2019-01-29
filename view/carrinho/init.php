@@ -13,7 +13,7 @@ if($_POST){
         $idUser = intval($_SESSION['idUser']);
         $idProduto = 0;
         //dados do pedido
-        $dados = ['id_usuario'=> $idUser,'id_status' => 4];
+        $dados = ['id_usuario'=> $idUser,'id_status' => 8];
         //objeto de criar um produto
         $adicionaProduto = new Create();
         //objeto de ler um produto

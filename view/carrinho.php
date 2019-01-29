@@ -8,7 +8,7 @@
         </p>
       </div>
       <div class="col-lg-3 cta-btn-container text-center">
-        <a class="cta-btn align-middle" href="#">Call To Action</a>
+        <a class="cta-btn align-middle" href="#">CADASTRAR</a>
       </div>
     </div>
 
@@ -55,7 +55,7 @@
             $read = new read();
             $cupon = null;
             $readProdutos = new read();
-            $read->ExeRead('pedidos', 'where id= :id AND id_status = 4', 'id='.$_SESSION['carrinho']);
+            $read->ExeRead('pedidos', 'where id= :id AND id_status = 8', 'id='.$_SESSION['carrinho']);
             foreach($read->getResult() as $pedido){ 
               $pedido['id'];
               $cupon =  $pedido['id_cupon'];
@@ -71,9 +71,9 @@
               <td>R$ <?php echo number_format($valor, 2, ",", "") ?></td>
               <td>
                 <form>
-                  <a href="" id="del-produto" alt="<?php echo $id_produto_pedido.';'.$quantidade ?>"><i class="fa fa-minus"></i></a>
+                  <a href="" class="del-produto" alt="<?php echo $id_produto_pedido.';'.$quantidade ?>"><i class="fa fa-minus"></i></a>
                   <span class="badge"><?php echo $quantidade ?></span>
-                  <a href="" id="add-produto" alt="<?php echo $id_produto_pedido.';'.$quantidade ?>"><i class="fa fa-plus"></i></a>
+                  <a href="" class="add-produto" alt="<?php echo $id_produto_pedido.';'.$quantidade ?>"><i class="fa fa-plus"></i></a>
                 </form>                
               </td>
               <td>R$ <?php echo number_format($total, 2, ",", "") ?></td>
